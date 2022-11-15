@@ -6,21 +6,21 @@ import java.util.List;
 /**
  * Bus 일급 컬렉션 객체
  */
-public class BusDto {
+public class Buses {
     // @Getter 없으므로 JSON 출력화면에서 제외
-    private final List<Bus> busDtos;
+    private final List<Bus> buses;
 
-    public BusDto(List<Bus> dtos) {
-        this.busDtos = new ArrayList<>(dtos);
+    public Buses(List<Bus> dtos) {
+        this.buses = new ArrayList<>(dtos);
     }
 
     // 메서드는 JSON 출력 시 결과값 출력 대상
     public int getSize() {
-        return busDtos.size();
+        return buses.size();
     }
 
     //public 이므로 @Getter 없어도 JSON 출력
     public List<Bus> getBusDto() {
-        return List.copyOf(busDtos);
+        return List.copyOf(buses);
     }
 }

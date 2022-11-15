@@ -11,9 +11,9 @@ public class BusResponse {
     @Getter // @Getter 추가하지 않으면 JSON 응답화면에 출력되지 않는다.
     private String code;
     @Getter
-    private BusDto busDto;
-    public BusResponse(String code, BusDto busDto) {
+    private Buses buses;
+    public BusResponse(String code, Buses buses) {
         this.code = code;
-        this.busDto = busDto;
+        this.buses = buses;
     }
 }

@@ -1,7 +1,7 @@
 package com.demo.busapp.web.controller;
 
 
-import com.demo.busapp.web.dto.BusDto;
+import com.demo.busapp.web.dto.Buses;
 import com.demo.busapp.web.dto.BusResponse;
 import com.demo.busapp.web.service.BusApiService;
 import lombok.Getter;
@@ -19,35 +19,39 @@ import java.io.IOException;
 public class BusApiController {
     private final BusApiService busApiService;
 
-    @GetMapping
+    @GetMapping("/bstop")
     @ResponseBody
-    public BusResponse bus() {
+    public BusResponse bstopTest() {
         try {
-            BusDto busDto = new BusDto(busApiService.stationInformation("164000345"));
-            return new BusResponse("정상", busDto);
+            return new BusResponse("정상", new Buses(busApiService.stationInformation("164000345")));
         } catch (IOException e) {
             throw new IllegalArgumentException();
         }
     }
 
-    /**
-     * App -> Server
-     * JSON 데이터 전송
-     */
+    @GetMapping("/route")
+    @ResponseBody
+    public String routeTest(){
+        try {
+            busApiService.busInformation("165000012");
+            return "complete";
+        } catch (IOException e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     @PostMapping("/json")
     @ResponseBody
-    public BusDto bus2(@RequestBody JsonTest jsonTest) {
+    public Buses jsonTest(@RequestBody JsonData jsonData) {
         try {
-            BusDto busDto = new BusDto(busApiService.stationInformation(jsonTest.getBstopid()));
-            return busDto;
+            return new Buses(busApiService.stationInformation(jsonData.getBstopid()));
         } catch (IOException e) {
             throw new IllegalArgumentException();
         }
     }
-
     @Getter
     @NoArgsConstructor
-    static class JsonTest {
+    static class JsonData {
         private String message;
         private String bstopid;
     }

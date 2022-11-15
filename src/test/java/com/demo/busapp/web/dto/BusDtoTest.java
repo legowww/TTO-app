@@ -16,7 +16,7 @@ class BusDtoTest {
         List<Bus> temp = new ArrayList<>();
         temp.add(busA);
         temp.add(busB);
-        BusDto busDto = new BusDto(temp);
+        Buses busDto = new Buses(temp);
 
         List<Bus> busDtos = busDto.getBusDto();
         for (Bus dto : busDtos) {
