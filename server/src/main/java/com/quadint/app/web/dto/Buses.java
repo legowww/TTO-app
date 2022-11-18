@@ -1,4 +1,4 @@
-package com.demo.busapp.web.dto;
+package com.quadint.app.web.dto;
 
 import java.util.ArrayList;
 import java.util.List;

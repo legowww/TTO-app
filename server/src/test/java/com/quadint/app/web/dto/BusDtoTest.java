@@ -1,5 +1,6 @@
-package com.demo.busapp.web.dto;
+package com.quadint.app.web.dto;
 
+import com.quadint.app.web.service.BusApiService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,4 +24,23 @@ class BusDtoTest {
             System.out.println("dto = " + dto.toString());
         }
     }
+
+    /**
+     * 출발 정류장: 164000345 에서 인접한 8번 버스 정보 2개를 가져온다.
+     */
+    @Test
+    public void apiTest() throws Exception {
+        //given
+        BusApiService busApiService = new BusApiService();
+        List<Bus> buses = busApiService.stationInformation("164000345");
+
+
+        //when
+
+
+
+        //then
+    }
+
+
 }
