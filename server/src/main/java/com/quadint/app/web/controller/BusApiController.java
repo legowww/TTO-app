@@ -1,6 +1,7 @@
 package com.quadint.app.web.controller;
 
 
+import com.quadint.app.web.dto.Bus;
 import com.quadint.app.web.dto.Buses;
 import com.quadint.app.web.dto.BusResponse;
 import com.quadint.app.web.service.BusApiService;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -30,10 +33,16 @@ public class BusApiController {
         return "complete";
     }
 
-    @PostMapping("/json")
+    @GetMapping("/json")
     @ResponseBody
-    public Buses jsonTest(@RequestBody JsonData jsonData) {
-        return new Buses(busApiService.stationInformation(jsonData.getBstopid()));
+    public List<Bus> jsonTest(@RequestBody JsonData jsonData) {
+        return busApiService.stationInformation(jsonData.getBstopid());
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public List<Bus> retrofitTest() {
+        return busApiService.stationInformation("164000345");
     }
 
     @Getter
