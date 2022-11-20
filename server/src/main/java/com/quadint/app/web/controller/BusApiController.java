@@ -1,12 +1,13 @@
 package com.quadint.app.web.controller;
 
 
-import com.quadint.app.web.dto.Bus;
-import com.quadint.app.web.dto.Buses;
-import com.quadint.app.web.dto.BusResponse;
-import com.quadint.app.web.service.BusApiService;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.quadint.app.domain.bus.Buses;
+import com.quadint.app.domain.bus.BusResponse;
+import com.quadint.app.domain.route.LocationCoordinate;
+import com.quadint.app.domain.route.Route;
+import com.quadint.app.domain.route.Routes;
+import com.quadint.app.web.service.bus.BusApiService;
+import com.quadint.app.web.service.route.RouteApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BusApiController {
     private final BusApiService busApiService;
+    private final RouteApiService routeApiService;
+
 
     @GetMapping("/bstop")
     @ResponseBody
@@ -33,22 +36,12 @@ public class BusApiController {
         return "complete";
     }
 
-    @GetMapping("/json")
+    @GetMapping("routes")
     @ResponseBody
-    public List<Bus> jsonTest(@RequestBody JsonData jsonData) {
-        return busApiService.stationInformation(jsonData.getBstopid());
+    public List<Route> getRoutes() {
+        LocationCoordinate lc = new LocationCoordinate("126.6698164", "37.40518939", "126.63652", "37.37499041");
+        Routes routes = routeApiService.getRoutes(lc);
+        return routes.getOptimalRoutes();
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public List<Bus> retrofitTest() {
-        return busApiService.stationInformation("164000345");
-    }
-
-    @Getter
-    @NoArgsConstructor
-    static class JsonData {
-        private String message;
-        private String bstopid;
-    }
 }

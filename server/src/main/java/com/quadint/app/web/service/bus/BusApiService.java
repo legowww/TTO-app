@@ -1,6 +1,6 @@
-package com.quadint.app.web.service;
+package com.quadint.app.web.service.bus;
 
-import com.quadint.app.web.dto.Bus;
+import com.quadint.app.domain.bus.Bus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
