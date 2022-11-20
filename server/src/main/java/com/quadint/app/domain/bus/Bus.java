@@ -1,4 +1,4 @@
-package com.quadint.app.web.dto;
+package com.quadint.app.domain.bus;
 
 
 import lombok.Getter;
