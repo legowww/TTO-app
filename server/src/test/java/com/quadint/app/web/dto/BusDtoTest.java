@@ -1,7 +1,7 @@
 package com.quadint.app.web.dto;
 
-import com.quadint.app.domain.bus.Bus;
-import com.quadint.app.domain.bus.Buses;
+import com.quadint.app.domain.test.Bus;
+import com.quadint.app.domain.test.Buses;
 import com.quadint.app.domain.route.LocationCoordinate;
 import com.quadint.app.domain.route.Route;
 import com.quadint.app.domain.route.Routes;
@@ -14,22 +14,7 @@ import java.util.List;
 
 class BusDtoTest {
 
-    @Test
-    public void test() throws Exception {
-        Bus busA = new Bus("1", "2", "3");
-        Bus busB = new Bus("4", "5", "6");
-        Bus busC = new Bus("7", "7", "7");
 
-        List<Bus> temp = new ArrayList<>();
-        temp.add(busA);
-        temp.add(busB);
-        Buses busDto = new Buses(temp);
-
-        List<Bus> busDtos = busDto.getBusDto();
-        for (Bus dto : busDtos) {
-            System.out.println("dto = " + dto.toString());
-        }
-    }
 
     /**
      * 1. 출발지, 목적지 좌표 입력
