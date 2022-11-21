@@ -1,6 +1,6 @@
-package com.quadint.app.web.service.bus;
+package com.quadint.app.web.service.test;
 
-import com.quadint.app.domain.bus.Bus;
+import com.quadint.app.domain.test.Bus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
@@ -37,8 +37,8 @@ public class BusApiService {
                     JSONObject item = (JSONObject) msgBody.get("itemList");
                     String ROUTEID = item.get("ROUTEID").toString();
                     String BSTOPID = item.get("BSTOPID").toString();
-                    String ARRIVALESTIMATETIME = item.get("ARRIVALESTIMATETIME").toString();
-                    result.add(new Bus(ROUTEID, BSTOPID, ARRIVALESTIMATETIME));
+                    int arrivalestimatetime = Integer.parseInt(item.get("ARRIVALESTIMATETIME").toString());
+                    result.add(new Bus(ROUTEID, BSTOPID, arrivalestimatetime));
                 }
                 else {
                     JSONArray items = (JSONArray) msgBody.get("itemList");
@@ -49,17 +49,19 @@ public class BusApiService {
                         String BUS_NUM_PLATE = item.get("BUS_NUM_PLATE").toString();
                         String LATEST_STOP_NAME = item.get("LATEST_STOP_NAME").toString();
                         String LATEST_STOP_ID = item.get("LATEST_STOP_ID").toString();
-                        String ARRIVALESTIMATETIME = item.get("ARRIVALESTIMATETIME").toString();
+                        int arrivalestimatetime = Integer.parseInt(item.get("ARRIVALESTIMATETIME").toString());
                         System.out.println(BUS_NUM_PLATE + " " + ROUTEID + "버스가 " + LATEST_STOP_NAME + "("
-                                + LATEST_STOP_ID + ")에서 " + BSTOPID + "정류장 도착" + ARRIVALESTIMATETIME + "초 전 입니다.");
-                        result.add(new Bus(ROUTEID, BSTOPID, ARRIVALESTIMATETIME));
+                                + LATEST_STOP_ID + ")에서 " + BSTOPID + "정류장 도착" + arrivalestimatetime + "초 전 입니다.");
+                        result.add(new Bus(ROUTEID, BSTOPID, arrivalestimatetime));
                     }
                 }
             }
             return result;
         } catch (IOException e) {
-            //IOException(checked exception)을 RuntimeException(unchecked exception) 으로 처리했다.
-            //unchecked exception 이므로 @Controller 메서드에서 throws 없이 사용 가능하다.
+            /**
+             * IOException(checked exception)을 RuntimeException(unchecked exception) 으로 처리했다.
+             * unchecked exception 이므로 @Controller 메서드에서 throws 를 사용하지 않아도 된다.
+             */
             throw new RuntimeException("SA");
         }
     }
@@ -132,6 +134,7 @@ public class BusApiService {
         }
         rd.close();
         conn.disconnect();
+        System.out.println(url);
         return sb;
     }
 }

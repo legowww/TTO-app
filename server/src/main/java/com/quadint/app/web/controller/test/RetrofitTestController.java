@@ -1,8 +1,8 @@
-package com.quadint.app.web.controller;
+package com.quadint.app.web.controller.test;
 
 
-import com.quadint.app.domain.bus.Bus;
-import com.quadint.app.web.service.bus.BusApiService;
+import com.quadint.app.domain.test.Bus;
+import com.quadint.app.web.service.test.BusApiService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
