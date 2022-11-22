@@ -1,9 +1,15 @@
 package com.quadint.app.domain.route;
 
+import com.quadint.app.domain.transportation.Bus;
+import com.quadint.app.domain.transportation.TrafficType;
 import com.quadint.app.domain.transportation.Transportation;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class Route implements Comparable<Route>{
@@ -24,6 +30,28 @@ public class Route implements Comparable<Route>{
     @Override
     public int compareTo(Route o) {
         return this.totalTime - o.totalTime;
+    }
+
+    /**
+     * <정류장ID, 처음으로 만나는 정류장까지의 쇼오시간(분)> 반환
+     */
+    public List<String> getFirstTransportation() {
+        //처음으로 탑승할 정류장 혹은 역까지 도보로 걷는 시간
+        Integer walkTime = 0;
+        for (int i = 0; i < transportationList.size(); ++i) {
+            Transportation t = transportationList.get(i);
+
+            if (t.getTrafficType() == TrafficType.WALK) {
+                walkTime += t.getTime();
+            }
+            else if (t.getTrafficType() == TrafficType.BUS){
+                //todo: 반환값 DTO, 추상 메서드등을 사용하여 리팩토링 예정
+                Bus bus = (Bus) t;
+                return List.of(bus.getStartLocalStationID(), bus.getRouteId(), walkTime.toString());
+            }
+        }
+        //todo: 경로에 도보만 있는 경우
+        return null;
     }
 
     public List<Transportation> getTransportationList() {

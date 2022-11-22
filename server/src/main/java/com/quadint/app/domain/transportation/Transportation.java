@@ -11,4 +11,6 @@ public abstract class Transportation {
         this.trafficType = trafficType;
         this.time = time;
     }
+
+    public abstract String getId();
 }

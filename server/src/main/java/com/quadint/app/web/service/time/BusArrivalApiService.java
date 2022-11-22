@@ -25,7 +25,8 @@ public class BusArrivalApiService {
         BusTimeResponse busTimeResponse = BusTimeResponse.createBusTimeResponse(routeId);
         String currBstopId = bstopId;
 
-        //3개 추출
+
+        //todo: 시간이 하나도 추가되지 않으면 예외 발생시켜야 한다.
         for (int i = 0; i < 3; ++i) {
             BusTime bus = getBusArrivalStationTime(currBstopId, routeId);
             if (bus != null) {
@@ -51,6 +52,8 @@ public class BusArrivalApiService {
             JSONObject msgHeader = (JSONObject) serviceResult.get("msgHeader");
             int resultCode = Integer.parseInt(msgHeader.get("resultCode").toString());
             int totalCount = Integer.parseInt(msgHeader.get("totalCount").toString());
+            System.out.println("resultCode = " + resultCode); //새벽에 버스 없을 때 조회하면 4
+            System.out.println("totalCount = " + totalCount);
 
             if (resultCode == 0) {
                 JSONObject msgBody = (JSONObject) serviceResult.get("msgBody");
@@ -76,7 +79,7 @@ public class BusArrivalApiService {
              */
             throw new RuntimeException("미구현");
         }
-        throw new RuntimeException("미구현");
+        throw new RuntimeException("미구현2");
     }
 
     private StringBuilder getBusArrivalStationUrl(String bstopId, String routeId) throws IOException {

@@ -25,6 +25,15 @@ public class BusTimeResponse {
         return new BusTimeResponse(routeId);
     }
 
+    public int getTimeSize() {
+        return times.size();
+    }
+
+
+    public Time getTime(int index) {
+        return times.get(index);
+    }
+
     public void addTime(Time time) {
         times.add(time);
     }
