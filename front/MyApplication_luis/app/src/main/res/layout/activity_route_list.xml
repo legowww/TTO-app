@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".route_list"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:id="@+id/route1"
+        android:layout_width="300dp"
+        android:layout_height="86dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <TextView
+            android:id="@+id/time1"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text="12:30"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/start1"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/end1"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/route2"
+        android:layout_width="300dp"
+        android:layout_height="86dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/time2"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text="17:27"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/start2"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/end2"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/route3"
+        android:layout_width="300dp"
+        android:layout_height="86dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7">
+
+        <TextView
+            android:id="@+id/time3"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text="21:54"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/start3"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/end3"
+            android:layout_width="100dp"
+            android:layout_height="86dp"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="검색결과"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:text="뒤로"
+        android:background="@android:color/transparent"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <Button
+        android:id="@+id/reload"
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="새로고침"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/fav"
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="즐겨찾기"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
