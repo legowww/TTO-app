@@ -3,6 +3,7 @@ package com.quadint.app.web.service.time;
 import com.quadint.app.domain.time.BusTime;
 import com.quadint.app.domain.time.Time;
 import com.quadint.app.domain.time.BusTimeResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.net.URLEncoder;
 import java.time.LocalDateTime;
 
 @Service
+@Slf4j
 public class BusArrivalApiService {
     private static final String SERVICE_KEY = "X4cMPRltQhalSiXM8QgHsuAOK1%2FasF494602CvtfRMOEOyTmY1h9UOxgzYax5T1oPy%2Bq1m9BtXlsHzznuJFxew%3D%3D";
     private static final String BUS_API_URL = "http://apis.data.go.kr/6280000/busArrivalService/getBusArrivalList";
@@ -25,13 +27,12 @@ public class BusArrivalApiService {
         BusTimeResponse busTimeResponse = BusTimeResponse.createBusTimeResponse(routeId);
         String currBstopId = bstopId;
 
-        //3개 추출
+        //todo: 시간이 하나도 추가되지 않으면 예외 발생시켜야 한다.
         for (int i = 0; i < 3; ++i) {
             BusTime bus = getBusArrivalStationTime(currBstopId, routeId);
             if (bus != null) {
                 LocalDateTime newTime = Time.calculateTime(currTime, bus.getArrivalTimeSec());
                 busTimeResponse.addTime(Time.createTime(newTime));
-
                 currBstopId = bus.getLastBstopId();
                 currTime = newTime;
             }
@@ -39,9 +40,9 @@ public class BusArrivalApiService {
                 break;
             }
         }
+        log.info("[info]busTimeResponse=" + busTimeResponse);
         return busTimeResponse;
     }
-
 
     private BusTime getBusArrivalStationTime(String bstopId, String routeId)  {
         try {
@@ -51,7 +52,8 @@ public class BusArrivalApiService {
             JSONObject msgHeader = (JSONObject) serviceResult.get("msgHeader");
             int resultCode = Integer.parseInt(msgHeader.get("resultCode").toString());
             int totalCount = Integer.parseInt(msgHeader.get("totalCount").toString());
-
+            log.info("[info]bstopId=" + bstopId + " routeId=" + routeId + " resultCode=" + resultCode + " totalCount=" + totalCount);
+            //조회 결과 없으면 resultCode 4
             if (resultCode == 0) {
                 JSONObject msgBody = (JSONObject) serviceResult.get("msgBody");
                 if (totalCount == 1) {
@@ -62,11 +64,9 @@ public class BusArrivalApiService {
                     String LATEST_STOP_NAME = item.get("LATEST_STOP_NAME").toString();
                     String LATEST_STOP_ID = item.get("LATEST_STOP_ID").toString();
                     int arrivalestimatetime = Integer.parseInt(item.get("ARRIVALESTIMATETIME").toString());
-                    System.out.println(BUS_NUM_PLATE + " " + ROUTEID + "버스가 " + LATEST_STOP_NAME + "(" + LATEST_STOP_ID + ")에서 " + bstopid + "정류장 도착" + arrivalestimatetime + "초 전 입니다.");
+                    log.info("[info]" + BUS_NUM_PLATE + " " + ROUTEID + "버스가 " + LATEST_STOP_NAME +
+                            "(" + LATEST_STOP_ID + ")에서 " + bstopid + "정류장 도착" + arrivalestimatetime + "초 전 입니다.");
                     return new BusTime(LATEST_STOP_ID, arrivalestimatetime);
-                }
-                else {
-                    return null;
                 }
             }
         } catch (IOException e) {
@@ -76,7 +76,7 @@ public class BusArrivalApiService {
              */
             throw new RuntimeException("미구현");
         }
-        throw new RuntimeException("미구현");
+        return null;
     }
 
     private StringBuilder getBusArrivalStationUrl(String bstopId, String routeId) throws IOException {
