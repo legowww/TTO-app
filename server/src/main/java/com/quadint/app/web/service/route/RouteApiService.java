@@ -54,7 +54,11 @@ public class RouteApiService {
 
                     //WALK
                     if (trafficType == TrafficType.WALK) {
-                        Walk walk = new Walk(TrafficType.WALK, sectionTime);
+                        if (sectionTime == 1) {
+                            totalTime -= 1;
+                            continue;
+                        }
+                        Walk walk = new Walk(sectionTime);
                         tempRoute.addTransportation(walk);
                     }
                     //BUS
@@ -68,7 +72,7 @@ public class RouteApiService {
                         JSONObject lane_bus = (JSONObject) lane.get(0);
                         String busNum = lane_bus.get("busNo").toString();
                         String busId = lane_bus.get("busLocalBlID").toString();
-                        Bus bus = new Bus(TrafficType.BUS, sectionTime, busId, busNum, startLocalStationID, startName, endLocalStationID, endName);
+                        Bus bus = new Bus(sectionTime, busId, busNum, startLocalStationID, startName, endLocalStationID, endName);
                         tempRoute.addTransportation(bus);
 
                         //정류장 리스트

@@ -19,45 +19,47 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/bus")
+@RequestMapping("/route")
 @RequiredArgsConstructor
-public class BusApiController {
+public class TimeApiController {
     private final BusArrivalApiService busArrivalApiService;
     private final RouteApiService routeApiService;
 
-    @GetMapping("/route")
+    @GetMapping
     @ResponseBody
     public List<TimeRoute> getRoutes() {
-        //        LocationCoordinate lc = new LocationCoordinate("126.64417910828391", "37.388578171104086", "126.63652", "37.37499041"); //송도컨벤시아
-        LocationCoordinate lc = new LocationCoordinate("126.67213", "37.4059212", "126.63652", "37.37499041");
-        List<Route> routes = routeApiService.getRoutes(lc);
+        LocationCoordinate lc = new LocationCoordinate("126.6709157", "37.4056074", "126.63652", "37.37499041");
 
+        //최적 경로3개
+        List<Route> tempRoutes = routeApiService.getRoutes(lc);
+        List<Route> routes = List.copyOf(List.of(tempRoutes.get(0), tempRoutes.get(1), tempRoutes.get(2)));
+
+//        List<Route> routes = routeApiService.getRoutes(lc);
+        //todo: 일급 컬렉션 TimeRoutes 추가
         List<TimeRoute> timeRoutes = new ArrayList<>();
         for (Route route : routes) {
+            //todo: 버스 전용 로직이므로 지하철 추가 시 수정
             List<String> first = route.getFirstTransportation();
-            String bstopId = first.get(0); //처음만나는 정류장ID
-            String routeId = first.get(1); //처음만는 정류장에서 타는 버스ID
-            int walkTime = Integer.parseInt(first.get(2)); //처음만나는 정류장까지의 걷는시간
+            String firstBstopId = first.get(0); //처음만나는 정류장ID
+            String firstRouteId = first.get(1); //처음만는 정류장에서 타는 버스ID
+            int walkTimeMin = Integer.parseInt(first.get(2)); //처음만나는 정류장까지의 걷는시간(분)
 
-            //todo: 버스인 경우만 사용되는 로직이므로 지하철 추가 시 수정 필수
-            BusTimeResponse r = busArrivalApiService.getTimeResponse(bstopId, routeId);
+            BusTimeResponse r = busArrivalApiService.getTimeResponse(firstBstopId, firstRouteId);
             for (int i = 0; i < r.getTimeSize(); i++) {
                 Time time = r.getTime(i);
                 LocalDateTime busArrivalTime = time.getTime(); //버스 도착시간
-                LocalDateTime timeToGo = busArrivalTime.minusMinutes(walkTime + 2); //나갈시간 = 버스 도착시간 - 정류장까지 걷는시간 + 여유시간(2)
-
+                LocalDateTime timeToGo = busArrivalTime.minusMinutes(walkTimeMin + 2); //나갈시간 = 버스 도착시간 - 정류장까지 걷는시간 + 보정시간(2)
                 TimeRoute timeRoute = TimeRoute.createTimeRoute(timeToGo, route);
                 timeRoutes.add(timeRoute);
             }
         }
-        Collections.sort(timeRoutes);
+        Collections.sort(timeRoutes); //나갈시간 빠른 순서대로 정렬
 
         List<TimeRoute> result = new ArrayList<>();
-        //현재 시간보다 빠르면 삭제
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(); //현재 시간
         for (int i = 0; i < timeRoutes.size(); ++i) {
             TimeRoute tr = timeRoutes.get(i);
-            if (tr.getTime().compareTo(now) != -1) {
+            if (tr.getTime().compareTo(now) != -1) { //현재 시간보다 이후인 시간대만 result 추가
                 result.add(tr);
             }
         }

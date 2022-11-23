@@ -12,6 +12,8 @@ class BusArrivalTest {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+        String format = now.format(formatter);
+
         System.out.println(now.format(formatter));
         LocalDateTime now2 = now.plusMinutes(35);
         System.out.println(now2.format(formatter));

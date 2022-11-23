@@ -29,22 +29,21 @@ public class Route implements Comparable<Route>{
         return this.totalTime - o.totalTime;
     }
 
-
     public List<String> getFirstTransportation() {
         Integer walkTime = 0; //처음으로 탑승할 정류장 혹은 역까지 도보로 걷는 시간
         for (int i = 0; i < transportationList.size(); ++i) {
             Transportation t = transportationList.get(i);
 
+            //todo: Transportation 의 상속관계를 활용한 추상 메서드등으로 리팩토링
             if (t.getTrafficType() == TrafficType.WALK) {
                 walkTime += t.getTime();
             }
             else if (t.getTrafficType() == TrafficType.BUS){
-                //todo: 반환값 DTO, 추상 메서드등을 사용하여 리팩토링 예정
                 Bus bus = (Bus) t;
                 return List.of(bus.getStartLocalStationID(), bus.getRouteId(), walkTime.toString());
             }
         }
-        //todo: 경로에 도보만 있는 경우
+        //todo: 경로에 도보만 있는 경우 예외처리 추가
         return null;
     }
 
