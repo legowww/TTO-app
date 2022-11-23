@@ -43,9 +43,9 @@ public class RouteApiService {
                 String lastEndStation = info.get("lastEndStation").toString();
                 String busTransitCount = info.get("busTransitCount").toString();
                 String subwayTransitCount = info.get("subwayTransitCount").toString();
-                Route tempRoute = new Route(busTransitCount, subwayTransitCount, firstStartStation, lastEndStation);
-
                 int totalTime = Integer.parseInt(info.get("totalTime").toString());
+
+                Route tempRoute = new Route(busTransitCount, subwayTransitCount, firstStartStation, lastEndStation);
                 JSONArray subPath = (JSONArray) path.get("subPath");
                 for (int j = 0; j < subPath.size(); ++j) {
                     JSONObject sp = (JSONObject) subPath.get(j);
@@ -54,10 +54,6 @@ public class RouteApiService {
 
                     //WALK
                     if (trafficType == TrafficType.WALK) {
-                        if (sectionTime == 1) {
-                            totalTime -= 1;
-                            continue;
-                        }
                         Walk walk = new Walk(TrafficType.WALK, sectionTime);
                         tempRoute.addTransportation(walk);
                     }
@@ -92,7 +88,6 @@ public class RouteApiService {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
         Collections.sort(tempRoutes);
         return tempRoutes;
     }

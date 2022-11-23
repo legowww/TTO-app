@@ -5,11 +5,8 @@ import com.quadint.app.domain.transportation.TrafficType;
 import com.quadint.app.domain.transportation.Transportation;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 public class Route implements Comparable<Route>{
@@ -32,12 +29,9 @@ public class Route implements Comparable<Route>{
         return this.totalTime - o.totalTime;
     }
 
-    /**
-     * <정류장ID, 처음으로 만나는 정류장까지의 쇼오시간(분)> 반환
-     */
+
     public List<String> getFirstTransportation() {
-        //처음으로 탑승할 정류장 혹은 역까지 도보로 걷는 시간
-        Integer walkTime = 0;
+        Integer walkTime = 0; //처음으로 탑승할 정류장 혹은 역까지 도보로 걷는 시간
         for (int i = 0; i < transportationList.size(); ++i) {
             Transportation t = transportationList.get(i);
 
