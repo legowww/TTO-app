@@ -2,7 +2,6 @@ package com.quadint.app.web.service.route;
 
 import com.quadint.app.domain.route.LocationCoordinate;
 import com.quadint.app.domain.route.Route;
-import com.quadint.app.domain.route.Routes;
 import com.quadint.app.domain.transportation.Bus;
 import com.quadint.app.domain.transportation.TrafficType;
 import com.quadint.app.domain.transportation.Walk;
@@ -19,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class RouteApiService {
     private static final String SERVICE_KEY = "Qmn6U2M5L3CCbVN8qFLeOCoE4m7xcYqwHz31rjcejo4";
     private static final String ROUTE_API_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
 
-    public Routes getRoutes(LocationCoordinate lc) {
+    public List<Route> getRoutes(LocationCoordinate lc) {
         List<Route> tempRoutes = new ArrayList<>();
         try {
             StringBuilder url = getRouteURL(lc);
@@ -43,9 +43,9 @@ public class RouteApiService {
                 String lastEndStation = info.get("lastEndStation").toString();
                 String busTransitCount = info.get("busTransitCount").toString();
                 String subwayTransitCount = info.get("subwayTransitCount").toString();
-                Route tempRoute = new Route(busTransitCount, subwayTransitCount, firstStartStation, lastEndStation);
-
                 int totalTime = Integer.parseInt(info.get("totalTime").toString());
+
+                Route tempRoute = new Route(busTransitCount, subwayTransitCount, firstStartStation, lastEndStation);
                 JSONArray subPath = (JSONArray) path.get("subPath");
                 for (int j = 0; j < subPath.size(); ++j) {
                     JSONObject sp = (JSONObject) subPath.get(j);
@@ -54,10 +54,6 @@ public class RouteApiService {
 
                     //WALK
                     if (trafficType == TrafficType.WALK) {
-                        if (sectionTime == 1) {
-                            totalTime -= 1;
-                            continue;
-                        }
                         Walk walk = new Walk(TrafficType.WALK, sectionTime);
                         tempRoute.addTransportation(walk);
                     }
@@ -92,7 +88,8 @@ public class RouteApiService {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        return new Routes(tempRoutes);
+        Collections.sort(tempRoutes);
+        return tempRoutes;
     }
 
     private StringBuilder getRouteURL(LocationCoordinate lc) throws IOException {
