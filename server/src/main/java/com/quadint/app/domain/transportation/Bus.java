@@ -25,4 +25,10 @@ public class Bus extends Transportation{
     public String toString() {
         return busNum + "(" + routeId + ")" + "번 버스로 " + super.getTime() + "분 소요하여 " + startName + "(" + startLocalStationID + ")정류장 에서 " + endName + "(" + endLocalStationID + ")정류장 까지 이동";
     }
+
+    //todo: 지하철 반환 갯수 확인하고 부모클래스에 abstract 메서드 사용 고려
+    @Override
+    public String getId() {
+        return getRouteId();
+    }
 }
