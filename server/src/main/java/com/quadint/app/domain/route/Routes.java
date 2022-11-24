@@ -13,8 +13,8 @@ public class Routes {
 
     public List<Route> getOptimalRoutes() {
         Collections.sort(this.routes);
-        return List.copyOf(routes);
+//        return List.copyOf(routes);
         //todo: 2~3개 루트를 추출하는 로직 추가 예정
-//        return List.copyOf(List.of(routes.get(0), routes.get(1), routes.get(2)));
+        return List.copyOf(List.of(routes.get(0), routes.get(1), routes.get(2)));
     }
 }

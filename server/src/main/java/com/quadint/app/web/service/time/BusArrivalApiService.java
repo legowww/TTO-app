@@ -24,10 +24,9 @@ public class BusArrivalApiService {
 
     public BusTimeResponse getTimeResponse(String bstopId, String routeId) {
         LocalDateTime currTime = LocalDateTime.now();
-        BusTimeResponse busTimeResponse = BusTimeResponse.createBusTimeResponse(routeId);
         String currBstopId = bstopId;
 
-        //todo: 시간이 하나도 추가되지 않으면 예외 발생시켜야 한다.
+        BusTimeResponse busTimeResponse = BusTimeResponse.createBusTimeResponse(routeId);
         for (int i = 0; i < 3; ++i) {
             BusTime bus = getBusArrivalStationTime(currBstopId, routeId);
             if (bus != null) {
