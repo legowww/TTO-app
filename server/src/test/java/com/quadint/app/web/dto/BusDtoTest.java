@@ -27,7 +27,7 @@ class BusDtoTest {
         for (int i = 0; i < result.size(); ++i) {
             Route route = result.get(i);
             System.out.println(i+1 + ". " + route);
-            List<Transportation> transportationList = route.getTransportationList();
+            List<Transportation> transportationList = route.getTransportation();
             for (Transportation transportation : transportationList) {
                 System.out.println("\t" + transportation.toString());
             }

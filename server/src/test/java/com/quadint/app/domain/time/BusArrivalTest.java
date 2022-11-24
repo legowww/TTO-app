@@ -2,34 +2,29 @@ package com.quadint.app.domain.time;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 class BusArrivalTest {
 
     @Test
-    public void timeTest() throws Exception {
+    public void localDateTimeToStr() throws Exception {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        String format = now.format(formatter);
-
-        System.out.println(now.format(formatter));
-        LocalDateTime now2 = now.plusMinutes(35);
-        System.out.println(now2.format(formatter));
+        String result = now.format(formatter);
+        System.out.println("result = " + result);
     }
 
 
     @Test
-    public void logicTest() throws Exception {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    public void strToLocalDateTime() throws Exception {
+        String str = "2022-11-24T17:26:32.0277346";
 
-        LocalDateTime now = LocalDateTime.now();
-
-        String lastBstopId = "164000345";
-//        TimeResponse ba = new TimeResponse(now, "165000012");
-
-
-
+        LocalDateTime now = LocalDateTime.parse(str);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String result = now.format(formatter);
+        System.out.println("result = " + result);
     }
 }

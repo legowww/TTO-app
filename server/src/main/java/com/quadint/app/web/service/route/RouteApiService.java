@@ -99,10 +99,10 @@ public class RouteApiService {
     private StringBuilder getRouteURL(LocationCoordinate lc) throws IOException {
         StringBuilder urlBuilder = new StringBuilder(ROUTE_API_URL);
         urlBuilder.append("?" + URLEncoder.encode("apiKey","UTF-8") + "=" + URLEncoder.encode(SERVICE_KEY, "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("SX","UTF-8") + "=" + URLEncoder.encode(lc.getSX(), "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("SY","UTF-8") + "=" + URLEncoder.encode(lc.getSY(), "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("EX","UTF-8") + "=" + URLEncoder.encode(lc.getEX(), "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("EY","UTF-8") + "=" + URLEncoder.encode(lc.getEY(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("SX","UTF-8") + "=" + URLEncoder.encode(lc.getSx(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("SY","UTF-8") + "=" + URLEncoder.encode(lc.getSy(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("EX","UTF-8") + "=" + URLEncoder.encode(lc.getEx(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("EY","UTF-8") + "=" + URLEncoder.encode(lc.getEy(), "UTF-8"));
         return setRequest(urlBuilder);
     }
 
