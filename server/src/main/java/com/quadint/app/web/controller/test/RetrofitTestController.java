@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -45,6 +46,7 @@ public class RetrofitTestController {
     static class JsonData {
         private String name;
         private int age;
+
         public JsonData(String name, int age) {
             this.name = name;
             this.age = age;
