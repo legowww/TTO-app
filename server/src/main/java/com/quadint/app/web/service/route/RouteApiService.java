@@ -2,7 +2,6 @@ package com.quadint.app.web.service.route;
 
 import com.quadint.app.domain.route.LocationCoordinate;
 import com.quadint.app.domain.route.Route;
-import com.quadint.app.domain.route.Routes;
 import com.quadint.app.domain.transportation.Bus;
 import com.quadint.app.domain.transportation.TrafficType;
 import com.quadint.app.domain.transportation.Walk;
@@ -19,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class RouteApiService {
     private static final String SERVICE_KEY = "Qmn6U2M5L3CCbVN8qFLeOCoE4m7xcYqwHz31rjcejo4";
     private static final String ROUTE_API_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
 
-    public Routes getRoutes(LocationCoordinate lc) {
+    public List<Route> getRoutes(LocationCoordinate lc) {
         List<Route> tempRoutes = new ArrayList<>();
         try {
             StringBuilder url = getRouteURL(lc);
@@ -43,9 +43,9 @@ public class RouteApiService {
                 String lastEndStation = info.get("lastEndStation").toString();
                 String busTransitCount = info.get("busTransitCount").toString();
                 String subwayTransitCount = info.get("subwayTransitCount").toString();
-                Route tempRoute = new Route(busTransitCount, subwayTransitCount, firstStartStation, lastEndStation);
-
                 int totalTime = Integer.parseInt(info.get("totalTime").toString());
+
+                Route tempRoute = new Route(busTransitCount, subwayTransitCount, firstStartStation, lastEndStation);
                 JSONArray subPath = (JSONArray) path.get("subPath");
                 for (int j = 0; j < subPath.size(); ++j) {
                     JSONObject sp = (JSONObject) subPath.get(j);
@@ -58,7 +58,7 @@ public class RouteApiService {
                             totalTime -= 1;
                             continue;
                         }
-                        Walk walk = new Walk(TrafficType.WALK, sectionTime);
+                        Walk walk = new Walk(sectionTime);
                         tempRoute.addTransportation(walk);
                     }
                     //BUS
@@ -72,7 +72,7 @@ public class RouteApiService {
                         JSONObject lane_bus = (JSONObject) lane.get(0);
                         String busNum = lane_bus.get("busNo").toString();
                         String busId = lane_bus.get("busLocalBlID").toString();
-                        Bus bus = new Bus(TrafficType.BUS, sectionTime, busId, busNum, startLocalStationID, startName, endLocalStationID, endName);
+                        Bus bus = new Bus(sectionTime, busId, busNum, startLocalStationID, startName, endLocalStationID, endName);
                         tempRoute.addTransportation(bus);
 
                         //정류장 리스트
@@ -92,16 +92,17 @@ public class RouteApiService {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        return new Routes(tempRoutes);
+        Collections.sort(tempRoutes);
+        return tempRoutes;
     }
 
     private StringBuilder getRouteURL(LocationCoordinate lc) throws IOException {
         StringBuilder urlBuilder = new StringBuilder(ROUTE_API_URL);
         urlBuilder.append("?" + URLEncoder.encode("apiKey","UTF-8") + "=" + URLEncoder.encode(SERVICE_KEY, "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("SX","UTF-8") + "=" + URLEncoder.encode(lc.getSX(), "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("SY","UTF-8") + "=" + URLEncoder.encode(lc.getSY(), "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("EX","UTF-8") + "=" + URLEncoder.encode(lc.getEX(), "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("EY","UTF-8") + "=" + URLEncoder.encode(lc.getEY(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("SX","UTF-8") + "=" + URLEncoder.encode(lc.getSx(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("SY","UTF-8") + "=" + URLEncoder.encode(lc.getSy(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("EX","UTF-8") + "=" + URLEncoder.encode(lc.getEx(), "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("EY","UTF-8") + "=" + URLEncoder.encode(lc.getEy(), "UTF-8"));
         return setRequest(urlBuilder);
     }
 

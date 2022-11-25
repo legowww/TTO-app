@@ -11,14 +11,20 @@ public class Bus extends Transportation{
     private String endLocalStationID;
     private String endName;
 
-    public Bus(TrafficType trafficType, int time, String routeId, String busNum, String startLocalStationID, String startName, String endLocalStationID, String endName) {
-        super(trafficType, time);
+    public Bus(int time, String routeId, String busNum, String startLocalStationID, String startName, String endLocalStationID, String endName) {
+        super(TrafficType.BUS, time);
         this.routeId = routeId;
         this.busNum = busNum;
         this.startLocalStationID = startLocalStationID;
         this.startName = startName;
         this.endLocalStationID = endLocalStationID;
         this.endName = endName;
+    }
+
+    //todo: 지하철 식별자 반환 개수 확인하고 부모클래스에 abstract 메서드 사용
+    @Override
+    public String getId() {
+        return getRouteId();
     }
 
     @Override

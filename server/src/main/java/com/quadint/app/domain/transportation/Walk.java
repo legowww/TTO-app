@@ -1,8 +1,14 @@
 package com.quadint.app.domain.transportation;
 
+
 public class Walk extends Transportation{
-    public Walk(TrafficType trafficType, int time) {
-        super(trafficType, time);
+    public Walk(int time) {
+        super(TrafficType.WALK, time);
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 
     @Override
