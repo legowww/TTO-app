@@ -1,4 +1,4 @@
-package com.quadint.app.domain.test;
+package com.quadint.app.test;
 
 import lombok.Getter;
 
