@@ -29,7 +29,6 @@ public class BusTimeResponse {
         return times.size();
     }
 
-
     public Time getTime(int index) {
         return times.get(index);
     }

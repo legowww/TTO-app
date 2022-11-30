@@ -1,6 +1,6 @@
-package com.quadint.app.web.service.time;
+package com.quadint.app.web.service;
 
-import com.quadint.app.domain.time.BusTime;
+import com.quadint.app.domain.time.BusTimeDto;
 import com.quadint.app.domain.time.Time;
 import com.quadint.app.domain.time.BusTimeResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +28,11 @@ public class BusArrivalApiService {
 
         BusTimeResponse busTimeResponse = BusTimeResponse.createBusTimeResponse(routeId);
         for (int i = 0; i < 3; ++i) {
-            BusTime bus = getBusArrivalStationTime(currBstopId, routeId);
-            if (bus != null) {
-                LocalDateTime newTime = Time.calculateTime(currTime, bus.getArrivalTimeSec());
+            BusTimeDto busTimeDto = getBusArrivalStationTime(currBstopId, routeId);
+            if (busTimeDto != null) {
+                LocalDateTime newTime = Time.calculateTime(currTime, busTimeDto.getArrivalTimeSec());
                 busTimeResponse.addTime(Time.createTime(newTime));
-                currBstopId = bus.getLastBstopId();
+                currBstopId = busTimeDto.getLastBstopId();
                 currTime = newTime;
             }
             else {
@@ -43,7 +43,7 @@ public class BusArrivalApiService {
         return busTimeResponse;
     }
 
-    private BusTime getBusArrivalStationTime(String bstopId, String routeId)  {
+    private BusTimeDto getBusArrivalStationTime(String bstopId, String routeId)  {
         try {
             StringBuilder url = getBusArrivalStationUrl(bstopId, routeId);
             JSONObject json = XML.toJSONObject(url.toString());
@@ -65,7 +65,7 @@ public class BusArrivalApiService {
                     int arrivalestimatetime = Integer.parseInt(item.get("ARRIVALESTIMATETIME").toString());
                     log.info("[info]" + BUS_NUM_PLATE + " " + ROUTEID + "버스가 " + LATEST_STOP_NAME +
                             "(" + LATEST_STOP_ID + ")에서 " + bstopid + "정류장 도착" + arrivalestimatetime + "초 전 입니다.");
-                    return new BusTime(LATEST_STOP_ID, arrivalestimatetime);
+                    return new BusTimeDto(LATEST_STOP_ID, arrivalestimatetime);
                 }
             }
         } catch (IOException e) {

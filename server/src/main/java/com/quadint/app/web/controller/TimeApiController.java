@@ -6,8 +6,8 @@ import com.quadint.app.domain.route.Route;
 import com.quadint.app.domain.route.TimeRoute;
 import com.quadint.app.domain.time.BusTimeResponse;
 import com.quadint.app.domain.time.Time;
-import com.quadint.app.web.service.time.BusArrivalApiService;
-import com.quadint.app.web.service.route.RouteApiService;
+import com.quadint.app.web.service.BusArrivalApiService;
+import com.quadint.app.web.service.RouteApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -69,13 +69,13 @@ public class TimeApiController {
     @GetMapping("/test")
     @ResponseBody
     public List<TimeRoute> getRoutesDefault() {
-        LocationCoordinate lc = new LocationCoordinate("126.6709157", "37.4056074", "126.63652", "37.37499041");
+//        LocationCoordinate lc = new LocationCoordinate("126.6709157", "37.4056074", "126.63652", "37.37499041");
+        LocationCoordinate lc = new LocationCoordinate("126.6486573", "37.3908814", "126.63652", "37.37499041"); //송도 더샵 퍼스트월드 단지
 
         //최적 경로3개
         List<Route> tempRoutes = routeApiService.getRoutes(lc);
         List<Route> routes = List.copyOf(List.of(tempRoutes.get(0), tempRoutes.get(1), tempRoutes.get(2)));
 
-//        List<Route> routes = routeApiService.getRoutes(lc);
         //todo: 일급 컬렉션 TimeRoutes 추가
         List<TimeRoute> timeRoutes = new ArrayList<>();
         for (Route route : routes) {
@@ -85,7 +85,7 @@ public class TimeApiController {
             String firstRouteId = first.get(1); //처음만는 정류장에서 타는 버스ID
             int walkTimeMin = Integer.parseInt(first.get(2)); //처음만나는 정류장까지의 걷는시간(분)
 
-            BusTimeResponse r = busArrivalApiService.getTimeResponse(firstBstopId, firstRouteId);
+            BusTimeResponse r = busArrivalApiService.getTimeResponse(firstBstopId, firstRouteId); //실시간 버스 도착 시간대 3개 GET
             for (int i = 0; i < r.getTimeSize(); i++) {
                 Time time = r.getTime(i);
                 LocalDateTime busArrivalTime = time.getTime(); //버스 도착시간
@@ -105,12 +105,5 @@ public class TimeApiController {
             }
         }
         return result;
-    }
-
-    @GetMapping("/time")
-    @ResponseBody
-    public BusTimeResponse getBusArrivalStationTimes() {
-        BusTimeResponse timeResponse = busArrivalApiService.getTimeResponse("164000345", "165000012");
-        return timeResponse;
     }
 }
