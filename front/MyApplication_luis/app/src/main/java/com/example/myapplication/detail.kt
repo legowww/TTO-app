@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class detail : AppCompatActivity() {
@@ -10,8 +11,8 @@ class detail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val back : Button = findViewById(R.id.back)
 
+        val back : Button = findViewById(R.id.back)
         back.setOnClickListener {
             val intent = Intent(this, route_list::class.java)
             startActivity(intent)
@@ -23,5 +24,10 @@ class detail : AppCompatActivity() {
             val intent = Intent(this, detail::class.java)
             startActivity(intent)
         }
+
+        //intent
+        val testStr = intent.getStringExtra("info")
+        val msg = findViewById<TextView>(R.id.detail2)
+        msg.text = testStr
     }
 }

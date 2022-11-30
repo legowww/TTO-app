@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/jalnan"
             android:gravity="center"
-            android:text="12:30"
+            android:text=""
             android:textSize="30dp" />
 
         <TextView
@@ -35,7 +35,6 @@
             android:layout_height="86dp"
             android:fontFamily="@font/jalnan"
             android:gravity="center"
-            android:text=""
             android:textSize="30dp" />
 
         <TextView
@@ -68,7 +67,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/jalnan"
             android:gravity="center"
-            android:text="17:27"
+            android:text=""
             android:textSize="30dp" />
 
         <TextView
@@ -110,7 +109,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/jalnan"
             android:gravity="center"
-            android:text="21:54"
+            android:text=""
             android:textSize="30dp" />
 
         <TextView
@@ -195,5 +194,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
+
+    <TextView
+        android:id="@+id/fail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

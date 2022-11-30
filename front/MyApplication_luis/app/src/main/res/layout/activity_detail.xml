@@ -24,12 +24,12 @@
 
     <TextView
         android:id="@+id/detail2"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
+        android:layout_width="320dp"
+        android:layout_height="532dp"
         android:fontFamily="@font/jalnan"
-        android:gravity="center"
-        android:text="안녕하세요!"
-        android:textSize="30dp"
+        android:gravity="top"
+        android:text="안녕하세요"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
