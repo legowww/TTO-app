@@ -62,6 +62,11 @@ public class BusArrivalApiService {
                     String BUS_NUM_PLATE = item.get("BUS_NUM_PLATE").toString();
                     String LATEST_STOP_NAME = item.get("LATEST_STOP_NAME").toString();
                     String LATEST_STOP_ID = item.get("LATEST_STOP_ID").toString();
+
+
+
+
+
                     int arrivalestimatetime = Integer.parseInt(item.get("ARRIVALESTIMATETIME").toString());
                     log.info("[info]" + BUS_NUM_PLATE + " " + ROUTEID + "버스가 " + LATEST_STOP_NAME +
                             "(" + LATEST_STOP_ID + ")에서 " + bstopid + "정류장 도착" + arrivalestimatetime + "초 전 입니다.");
@@ -94,7 +99,7 @@ public class BusArrivalApiService {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
         conn.setRequestProperty("Accept", "text/xml");
-        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = rd.readLine()) != null) {

@@ -112,7 +112,9 @@ public class RouteApiService {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
         conn.setRequestProperty("Accept", "text/xml");
-        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        // 콘솔 파일에서 한글 깨짐 해결
+        // https://yongku.tistory.com/entry/%EC%9E%90%EB%B0%94JAVA-API-UTF-8-%EC%9D%B8%EC%BD%94%EB%94%A9-InputStreamReader-UTF-8-%EC%9D%B8%EC%BD%94%EB%94%A9%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95%ED%95%9C%EA%B8%80%EA%B9%A8%EC%A7%90-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
+        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = rd.readLine()) != null) {
