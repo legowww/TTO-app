@@ -1,4 +1,4 @@
-package com.quadint.app.domain.test;
+package com.quadint.app.test;
 
 import java.util.ArrayList;
 import java.util.List;

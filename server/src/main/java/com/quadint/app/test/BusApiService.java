@@ -1,6 +1,5 @@
-package com.quadint.app.web.service.test;
+package com.quadint.app.test;
 
-import com.quadint.app.domain.test.Bus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;

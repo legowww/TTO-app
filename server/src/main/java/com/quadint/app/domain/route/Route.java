@@ -47,7 +47,7 @@ public class Route implements Comparable<Route>{
         return null;
     }
 
-    public List<Transportation> getTransportation() {
+    private List<Transportation> getTransportation() {
         return List.copyOf(transportationList);
     }
 

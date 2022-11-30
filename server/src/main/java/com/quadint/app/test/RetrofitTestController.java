@@ -1,8 +1,6 @@
-package com.quadint.app.web.controller.test;
+package com.quadint.app.test;
 
 
-import com.quadint.app.domain.test.Bus;
-import com.quadint.app.web.service.test.BusApiService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller

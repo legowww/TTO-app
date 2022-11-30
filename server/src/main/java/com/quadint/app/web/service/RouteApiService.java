@@ -1,4 +1,4 @@
-package com.quadint.app.web.service.route;
+package com.quadint.app.web.service;
 
 import com.quadint.app.domain.route.LocationCoordinate;
 import com.quadint.app.domain.route.Route;
