@@ -25,9 +25,9 @@
     <TextView
         android:id="@+id/detail2"
         android:layout_width="320dp"
-        android:layout_height="532dp"
+        android:layout_height="480dp"
         android:fontFamily="@font/jalnan"
-        android:gravity="top"
+        android:gravity="center"
         android:text="안녕하세요"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

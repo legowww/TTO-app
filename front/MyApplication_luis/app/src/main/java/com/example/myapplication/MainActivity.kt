@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, route_list::class.java)
         val eText1 : EditText = findViewById(R.id.editText)
         val eText2 : EditText = findViewById(R.id.editText2)
-        eText1.setText("송도더샵퍼스트월드")
-        eText2.setText("인천대학교자연과학대학")
 
         eText2.setOnKeyListener { view, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
