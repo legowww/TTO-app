@@ -5,6 +5,7 @@ import com.quadint.app.domain.route.Route;
 import com.quadint.app.domain.transportation.Bus;
 import com.quadint.app.domain.transportation.TrafficType;
 import com.quadint.app.domain.transportation.Walk;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@Slf4j
 public class RouteApiService {
     private static final String SERVICE_KEY = "Qmn6U2M5L3CCbVN8qFLeOCoE4m7xcYqwHz31rjcejo4";
     private static final String ROUTE_API_URL = "https://api.odsay.com/v1/api/searchPubTransPathT";
@@ -32,6 +34,7 @@ public class RouteApiService {
             StringBuilder url = getRouteURL(lc);
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(url.toString());
+            log.info("{}", json.toJSONString());
             JSONObject result = (JSONObject) json.get("result");
             JSONArray paths = (JSONArray) result.get("path");
 
@@ -75,7 +78,7 @@ public class RouteApiService {
                         Bus bus = new Bus(sectionTime, busId, busNum, startLocalStationID, startName, endLocalStationID, endName);
                         tempRoute.addTransportation(bus);
 
-                        //정류장 리스트
+                        //정류장 리스트 - 미사용
                         JSONObject passStopList = (JSONObject) sp.get("passStopList");
                         JSONArray stations = (JSONArray) passStopList.get("stations");
                         for (int k = 0; k < stations.size(); ++k) {

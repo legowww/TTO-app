@@ -74,7 +74,7 @@ public class TimeApiController {
 
         //최적 경로3개
         List<Route> tempRoutes = routeApiService.getRoutes(lc);
-        List<Route> routes = List.copyOf(List.of(tempRoutes.get(0), tempRoutes.get(1), tempRoutes.get(2)));
+        List<Route> routes = List.of(tempRoutes.get(0), tempRoutes.get(1), tempRoutes.get(2));
 
         //todo: 일급 컬렉션 TimeRoutes 추가
         List<TimeRoute> timeRoutes = new ArrayList<>();
@@ -94,7 +94,7 @@ public class TimeApiController {
                 timeRoutes.add(timeRoute);
             }
         }
-        Collections.sort(timeRoutes); //나갈시간 빠른 순서대로 정렬
+        Collections.sort(timeRoutes); //나갈시간이 빠른 순서대로 정렬
 
         List<TimeRoute> result = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now(); //현재 시간
