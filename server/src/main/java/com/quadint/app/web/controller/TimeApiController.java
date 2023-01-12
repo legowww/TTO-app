@@ -1,7 +1,7 @@
 package com.quadint.app.web.controller;
 
 
-import com.quadint.app.domain.route.LocationCoordinate;
+import com.quadint.app.web.controller.request.LocationCoordinateRequest;
 import com.quadint.app.domain.route.Route;
 import com.quadint.app.domain.route.TimeRoute;
 import com.quadint.app.domain.time.BusTimeResponse;
@@ -27,14 +27,13 @@ public class TimeApiController {
 
     @PostMapping
     @ResponseBody
-    public List<TimeRoute> getRoutes(@RequestBody LocationCoordinate lc) {
+    public List<TimeRoute> getRoutes(@RequestBody LocationCoordinateRequest lc) {
         System.out.println("lc = " + lc.toString());
 
         //최적 경로3개
         List<Route> tempRoutes = routeApiService.getRoutes(lc);
-        List<Route> routes = List.copyOf(List.of(tempRoutes.get(0), tempRoutes.get(1), tempRoutes.get(2)));
+        List<Route> routes = List.of(tempRoutes.get(0), tempRoutes.get(1), tempRoutes.get(2));
 
-//        List<Route> routes = routeApiService.getRoutes(lc);
         //todo: 일급 컬렉션 TimeRoutes 추가
         List<TimeRoute> timeRoutes = new ArrayList<>();
         for (Route route : routes) {
@@ -69,8 +68,8 @@ public class TimeApiController {
     @GetMapping("/test")
     @ResponseBody
     public List<TimeRoute> getRoutesDefault() {
-//        LocationCoordinate lc = new LocationCoordinate("126.6709157", "37.4056074", "126.63652", "37.37499041");
-        LocationCoordinate lc = new LocationCoordinate("126.6486573", "37.3908814", "126.63652", "37.37499041"); //송도 더샵 퍼스트월드 단지
+//        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6709157", "37.4056074", "126.63652", "37.37499041");
+        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6486573", "37.3908814", "126.63652", "37.37499041"); //송도 더샵 퍼스트월드 단지
 
         //최적 경로3개
         List<Route> tempRoutes = routeApiService.getRoutes(lc);

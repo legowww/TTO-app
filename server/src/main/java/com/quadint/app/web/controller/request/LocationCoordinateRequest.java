@@ -1,17 +1,17 @@
-package com.quadint.app.domain.route;
+package com.quadint.app.web.controller.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LocationCoordinate {
+public class LocationCoordinateRequest {
     private String sx;
     private String sy;
     private String ex;
     private String ey;
 
-    public LocationCoordinate(String sx, String sy, String ex, String ey) {
+    public LocationCoordinateRequest(String sx, String sy, String ex, String ey) {
         this.sx = sx;
         this.sy = sy;
         this.ex = ex;
@@ -20,7 +20,7 @@ public class LocationCoordinate {
 
     @Override
     public String toString() {
-        return "LocationCoordinate{" +
+        return "LocationCoordinateRequest{" +
                 "SX='" + sx + '\'' +
                 ", SY='" + sy + '\'' +
                 ", EX='" + ex + '\'' +
