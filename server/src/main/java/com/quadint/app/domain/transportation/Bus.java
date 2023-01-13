@@ -12,7 +12,7 @@ public class Bus extends Transportation{
     private String endName;
 
     public Bus(int time, String routeId, String busNum, String startLocalStationID, String startName, String endLocalStationID, String endName) {
-        super(TrafficType.BUS, time);
+        super(TransportationType.BUS, time);
         this.routeId = routeId;
         this.busNum = busNum;
         this.startLocalStationID = startLocalStationID;

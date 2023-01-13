@@ -1,13 +1,16 @@
-package com.quadint.app.domain.time;
+package com.quadint.app.domain;
 
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 나갈 시간
+ */
 @Getter
 public class Time {
-    private LocalDateTime time; //외출 시간
+    private LocalDateTime time;
 
     private Time(LocalDateTime outTime) {
         this.time = outTime;

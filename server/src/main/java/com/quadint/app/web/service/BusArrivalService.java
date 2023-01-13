@@ -1,7 +1,7 @@
 package com.quadint.app.web.service;
 
 import com.quadint.app.domain.time.BusTimeDto;
-import com.quadint.app.domain.time.Time;
+import com.quadint.app.domain.Time;
 import com.quadint.app.domain.time.BusTimeResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 
 @Service
 @Slf4j
-public class BusArrivalApiService {
+public class BusArrivalService {
     private static final String SERVICE_KEY = "X4cMPRltQhalSiXM8QgHsuAOK1%2FasF494602CvtfRMOEOyTmY1h9UOxgzYax5T1oPy%2Bq1m9BtXlsHzznuJFxew%3D%3D";
     private static final String BUS_API_URL = "http://apis.data.go.kr/6280000/busArrivalService/getBusArrivalList";
 
@@ -47,6 +47,9 @@ public class BusArrivalApiService {
         try {
             StringBuilder url = getBusArrivalStationUrl(bstopId, routeId);
             JSONObject json = XML.toJSONObject(url.toString());
+            log.info("[getBusArrivalStationTime]json={}", json.toString());
+
+
             JSONObject serviceResult = (JSONObject) json.get("ServiceResult");
             JSONObject msgHeader = (JSONObject) serviceResult.get("msgHeader");
             int resultCode = Integer.parseInt(msgHeader.get("resultCode").toString());
@@ -62,10 +65,6 @@ public class BusArrivalApiService {
                     String BUS_NUM_PLATE = item.get("BUS_NUM_PLATE").toString();
                     String LATEST_STOP_NAME = item.get("LATEST_STOP_NAME").toString();
                     String LATEST_STOP_ID = item.get("LATEST_STOP_ID").toString();
-
-
-
-
 
                     int arrivalestimatetime = Integer.parseInt(item.get("ARRIVALESTIMATETIME").toString());
                     log.info("[info]" + BUS_NUM_PLATE + " " + ROUTEID + "버스가 " + LATEST_STOP_NAME +

@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 
 @Getter
 public class TimeRoute implements Comparable<TimeRoute>{
-    @JsonFormat(pattern = "HH:mm") //JSON 값 반환할 때 STRING 형식으로 반환되는데, 그 값을 설정한 포맷 형식으로 반환해준다.
+    @JsonFormat(pattern = "HH:mm") //JSON 값 반환할 때 값을 설정한 포맷 형식의 String 반환
     private LocalDateTime time;
-
     private Route route;
 
     private TimeRoute(LocalDateTime time, Route route) {

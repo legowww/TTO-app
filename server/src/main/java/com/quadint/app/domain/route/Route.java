@@ -1,7 +1,7 @@
 package com.quadint.app.domain.route;
 
 import com.quadint.app.domain.transportation.Bus;
-import com.quadint.app.domain.transportation.TrafficType;
+import com.quadint.app.domain.transportation.TransportationType;
 import com.quadint.app.domain.transportation.Transportation;
 import lombok.Getter;
 
@@ -30,17 +30,20 @@ public class Route implements Comparable<Route>{
     }
 
     public List<String> getFirstTransportation() {
-        Integer walkTime = 0; //처음으로 탑승할 정류장 혹은 역까지 도보로 걷는 시간
+        Integer walkTime = 0; //처음으로 탑승장까지 도보로 걷는 시간
         for (int i = 0; i < transportationList.size(); ++i) {
             Transportation t = transportationList.get(i);
 
-            //todo: Transportation 의 상속관계를 활용한 추상 메서드등으로 리팩토링
-            if (t.getTrafficType() == TrafficType.WALK) {
+            if (t.getTransportationType() == TransportationType.WALK) {
                 walkTime += t.getTime();
             }
-            else if (t.getTrafficType() == TrafficType.BUS){
+            else if (t.getTransportationType() == TransportationType.BUS){
                 Bus bus = (Bus) t;
-                return List.of(bus.getStartLocalStationID(), bus.getRouteId(), walkTime.toString());
+                return List.of(TransportationType.BUS.name(), bus.getStartLocalStationID(), bus.getRouteId(), walkTime.toString());
+            }
+            //todo: 지하철 정보 추가
+            else if (t.getTransportationType() == TransportationType.SUBWAY) {
+                return List.of(TransportationType.SUBWAY.name());
             }
         }
         //todo: 경로에 도보만 있는 경우 예외처리 추가

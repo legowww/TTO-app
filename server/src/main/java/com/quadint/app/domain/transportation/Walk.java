@@ -3,7 +3,7 @@ package com.quadint.app.domain.transportation;
 
 public class Walk extends Transportation{
     public Walk(int time) {
-        super(TrafficType.WALK, time);
+        super(TransportationType.WALK, time);
     }
 
     @Override
