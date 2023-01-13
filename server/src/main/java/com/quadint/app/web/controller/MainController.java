@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class TimeController {
+public class MainController {
     private final RouteService routeService;
 
     @PostMapping("/route")
