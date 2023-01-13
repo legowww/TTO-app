@@ -1,6 +1,6 @@
 package com.quadint.app.domain.transportation;
 
-public enum TrafficType {
+public enum TransportationType {
     WALK,
     BUS,
     SUBWAY

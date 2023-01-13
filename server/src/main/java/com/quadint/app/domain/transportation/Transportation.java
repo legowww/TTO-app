@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 public abstract class Transportation {
-    private TrafficType trafficType;
+    private TransportationType transportationType;
     private int time;
 
-    public Transportation(TrafficType trafficType, int time) {
-        this.trafficType = trafficType;
+    public Transportation(TransportationType transportationType, int time) {
+        this.transportationType = transportationType;
         this.time = time;
     }
 

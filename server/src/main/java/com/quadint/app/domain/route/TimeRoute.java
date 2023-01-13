@@ -5,14 +5,9 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-/**
- * @Controller 에서 반환할 최종 응답값
- */
 @Getter
 public class TimeRoute implements Comparable<TimeRoute>{
-
-    /*** JSON 값 반환할 때 값을 설정한 포맷 형식의 String 반환 */
-    @JsonFormat(pattern = "HH:mm")
+    @JsonFormat(pattern = "HH:mm") //JSON 값 반환할 때 값을 설정한 포맷 형식의 String 반환
     private LocalDateTime time;
     private Route route;
 

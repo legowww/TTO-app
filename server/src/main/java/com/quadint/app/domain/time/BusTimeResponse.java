@@ -1,5 +1,6 @@
 package com.quadint.app.domain.time;
 
+import com.quadint.app.domain.Time;
 import lombok.Getter;
 
 import java.util.ArrayList;

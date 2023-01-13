@@ -1,4 +1,4 @@
-package com.quadint.app.domain.time;
+package com.quadint.app.domain;
 
 import lombok.Getter;
 
