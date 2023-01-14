@@ -3,6 +3,7 @@ package com.quadint.app.web.service;
 import com.quadint.app.domain.time.BusTimeDto;
 import com.quadint.app.domain.Time;
 import com.quadint.app.domain.time.BusTimeResponse;
+import com.quadint.app.web.exception.TtoAppException;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.json.XML;
@@ -77,7 +78,7 @@ public class BusArrivalService {
              * IOException(checked exception)을 RuntimeException(unchecked exception) 으로 처리했다.
              * unchecked exception 이므로 @Controller 메서드에서 throws 를 사용하지 않아도 된다.
              */
-            throw new RuntimeException("미구현");
+            throw new TtoAppException("getBusArrivalStationTime error");
         }
         return null;
     }
