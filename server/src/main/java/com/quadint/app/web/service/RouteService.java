@@ -3,11 +3,9 @@ package com.quadint.app.web.service;
 import com.quadint.app.domain.route.TimeRoute;
 import com.quadint.app.domain.time.BusTimeResponse;
 import com.quadint.app.domain.Time;
+import com.quadint.app.domain.transportation.*;
 import com.quadint.app.web.controller.request.LocationCoordinateRequest;
 import com.quadint.app.domain.route.Route;
-import com.quadint.app.domain.transportation.Bus;
-import com.quadint.app.domain.transportation.TransportationType;
-import com.quadint.app.domain.transportation.Walk;
 import com.quadint.app.web.controller.response.Response;
 import com.quadint.app.web.exception.TtoAppException;
 import lombok.RequiredArgsConstructor;
@@ -111,6 +109,9 @@ public class RouteService {
                     int sectionTime = Integer.parseInt(sp.get("sectionTime").toString());
 
                     if (transportationType == TransportationType.WALK) {
+                        if (sectionTime == 0) {
+                            continue;
+                        }
                         if (sectionTime == 1) {
                             totalTime -= 1;
                             continue;
@@ -131,7 +132,12 @@ public class RouteService {
                         route.addTransportation(bus);
                     }
                     else if (transportationType == TransportationType.SUBWAY) {
-
+                        String startID = sp.get("startID").toString();
+                        String wayCode = sp.get("wayCode").toString();
+                        String startName = sp.get("startName").toString();
+                        String endName = sp.get("endName").toString();
+                        Subway subway = new Subway(sectionTime, startID, wayCode, startName, endName);
+                        route.addTransportation(subway);
                     }
                 }
                 route.setTotalTime(totalTime);
@@ -144,14 +150,27 @@ public class RouteService {
         }
         Collections.sort(routes);
 
-        List<Route> optimal = List.of(routes.get(0), routes.get(1), routes.get(2)); //목적지까지의 도착 소요시간이 적게 걸리는 상위 3개의 경로 추출
-        List<TimeRoute> result = addOutingTime(optimal); //각 경로에 해당하는 첫 번째(정류장, 역)까지의 걷는 시간 추가
-
-
-        if (result.size() == 0) {
-            throw new TtoAppException("No results were found.");
+        for (Route route : routes) {
+            log.info("{}", route);
+            List<Transportation> transportationList = route.getTransportationList();
+            for (Transportation transportation : transportationList) {
+                log.info("{}", transportation.toString());
+            }
+            log.info("\n");
         }
-        return result;
+        throw new TtoAppException("No results were found.");
+
+
+
+//        List<Route> optimal = List.of(routes.get(0), routes.get(1), routes.get(2)); //목적지까지의 도착 소요시간이 적게 걸리는 상위 3개의 경로 추출
+//        List<TimeRoute> result = addOutingTime(optimal); //각 경로에 해당하는 첫 번째(정류장, 역)까지의 걷는 시간 추가
+
+        
+//
+//        if (result.size() == 0) {
+//            throw new TtoAppException("No results were found.");
+//        }
+//        return result;
     }
 
     private StringBuilder getRouteURL(LocationCoordinateRequest lc) throws IOException {
