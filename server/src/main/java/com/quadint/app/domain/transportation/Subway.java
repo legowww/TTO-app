@@ -1,5 +1,8 @@
 package com.quadint.app.domain.transportation;
 
+import lombok.Getter;
+
+@Getter
 public class Subway extends Transportation{
     private String startID;
     private String wayCode;

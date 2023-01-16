@@ -62,10 +62,11 @@ public class RouteService {
             }
             //todo: 집에서 처음만나는 장소가 지하철인 경우 추가
             else if (transportationType == TransportationType.SUBWAY.name()) {
+                String startID = t.get(1);
+                String wayCode = t.get(2);
+                int walkTimeMinutes = Integer.parseInt(t.get(3));
 
-            }
-            else if (transportationType == TransportationType.WALK.name()) {
-
+                //todo: 지하철 도착시간 3개 추출
             }
         }
         Collections.sort(timeRoutes); //나갈시간이 빠른 순서대로 정렬

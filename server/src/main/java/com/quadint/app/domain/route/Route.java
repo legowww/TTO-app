@@ -1,6 +1,7 @@
 package com.quadint.app.domain.route;
 
 import com.quadint.app.domain.transportation.Bus;
+import com.quadint.app.domain.transportation.Subway;
 import com.quadint.app.domain.transportation.TransportationType;
 import com.quadint.app.domain.transportation.Transportation;
 import lombok.Getter;
@@ -41,9 +42,9 @@ public class Route implements Comparable<Route>{
                 Bus bus = (Bus) t;
                 return List.of(TransportationType.BUS.name(), bus.getStartLocalStationID(), bus.getRouteId(), walkTime.toString());
             }
-            //todo: 지하철 정보 추가
             else if (t.getTransportationType() == TransportationType.SUBWAY) {
-                return List.of(TransportationType.SUBWAY.name());
+                Subway subway = (Subway) t;
+                return List.of(TransportationType.SUBWAY.name(), subway.getStartID(), subway.getWayCode(), walkTime.toString());
             }
         }
         //todo: 경로에 도보만 있는 경우 예외처리 추가
