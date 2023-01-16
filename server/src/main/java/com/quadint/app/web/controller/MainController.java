@@ -27,8 +27,10 @@ public class MainController {
     @GetMapping("/test")
     @ResponseBody
     public Response<List<TimeRoute>> getRoutesDefault() {
-        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6486573", "37.3908814", "126.63652", "37.37499041");
+        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6486573", "37.3908814", "126.6915832", "37.4384786"); // 퍼월->문학경기장
         List<TimeRoute> result = routeService.calculateRoute(lc);
         return Response.success(result);
     }
 }
+//        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6486573", "37.3908814", "126.63652", "37.37499041"); // 퍼월->송도
+//        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6705603", "37.4054496", "126.63652", "37.37499041");

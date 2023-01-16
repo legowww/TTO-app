@@ -64,6 +64,6 @@ public class Route implements Comparable<Route>{
 
     @Override
     public String toString() {
-        return "총시간:" + totalTime + "분 출발정류장:" + firstStartStation + " 최종도착정류장:" + lastEndStation + " 버스:" + busTransitCount + " 지하철:" + subwayTransitCount;
+        return "총시간:" + totalTime + "분 출발:" + firstStartStation + " 도착:" + lastEndStation + " 버스:" + busTransitCount + " 지하철:" + subwayTransitCount;
     }
 }
