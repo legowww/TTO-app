@@ -13,8 +13,8 @@ public class SubwayTimeResponse {
     @Getter
     private String wayCode;
     @Getter @Setter
-    private String idx;
-    @Getter
+    private String[] idx;
+    @Getter @Setter
     private String[] list;
 
     private SubwayTimeResponse(String stationId, String wayCode) { this.stationId = stationId; this.wayCode = wayCode; }

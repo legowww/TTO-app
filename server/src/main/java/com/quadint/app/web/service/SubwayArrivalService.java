@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.Buffer;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,17 +27,22 @@ public class SubwayArrivalService {
     private static final String SUBWAY_API_URL = "https://api.odsay.com/v1/api/subwayTimeTable";
 
     public SubwayTimeResponse getTimeResponse(String stationId, String wayCode) {
-        SubwayTimeResponse subwayTimeResponse = SubwayTimeResponse.createSubwayTimeResponse(stationId, wayCode);
-        for (int i = 0; i < 3; i++) {
-            SubwayTimeDto subwayTimeDto = getSubwayArrivalStationTime(stationId, wayCode);
-            if (subwayTimeDto != null) {
-                subwayTimeResponse.setIdx(subwayTimeDto.getIdx());
+        LocalDateTime now = LocalDateTime.now();
+        String[] hour = {"0", "0"};
+        String[] minute = {"0", "0", "0"};
 
-            }
-            else {
-                break;
+        SubwayTimeResponse subwayTimeResponse = SubwayTimeResponse.createSubwayTimeResponse(stationId, wayCode);
+        SubwayTimeDto subwayTimeDto = getSubwayArrivalStationTime(stationId, wayCode);
+
+        hour[0] = String.valueOf(now.getHour());
+
+        String[] list = subwayTimeDto.getList();
+        if (subwayTimeDto.getIdx() != "24") {
+            for (int i = 0; i < list.length; i++) {
+                
             }
         }
+
         return subwayTimeResponse;
     }
 
