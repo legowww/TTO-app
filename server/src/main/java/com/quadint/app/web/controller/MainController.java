@@ -24,6 +24,7 @@ public class MainController {
         return result;
     }
 
+    //스프링 시큐리티 인가 테스트 URL
     @GetMapping("/test")
     @ResponseBody
     public Response<List<TimeRoute>> getRoutesDefault() {
@@ -32,5 +33,4 @@ public class MainController {
         return Response.success(result);
     }
 }
-//        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6486573", "37.3908814", "126.63652", "37.37499041"); // 퍼월->송도
-//        LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6705603", "37.4054496", "126.63652", "37.37499041");
+
