@@ -3,10 +3,12 @@ package com.quadint.app.web.service;
 import com.quadint.app.domain.time.SubwayTimeDto;
 import com.quadint.app.domain.time.SubwayTimeResponse;
 import com.quadint.app.web.exception.TtoAppException;
+import org.apache.tomcat.jni.Local;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,11 +18,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.Buffer;
 import java.sql.Array;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class SubwayArrivalService {
     private static final String SERVICE_KEY = "Qmn6U2M5L3CCbVN8qFLeOCoE4m7xcYqwHz31rjcejo4";
 
@@ -28,38 +33,31 @@ public class SubwayArrivalService {
 
     public SubwayTimeResponse getTimeResponse(String stationId, String wayCode) {
         LocalDateTime now = LocalDateTime.now();
-        String[] hour = {"0", "0"};
-        String[] minute = {"0", "0", "0"};
-        String nowMinute = String.valueOf(now.getMinute());
+        ArrayList<LocalDateTime> result = new ArrayList<>();
 
         SubwayTimeResponse subwayTimeResponse = SubwayTimeResponse.createSubwayTimeResponse(stationId, wayCode);
         SubwayTimeDto subwayTimeDto = getSubwayArrivalStationTime(stationId, wayCode);
 
-        hour[0] = String.valueOf(now.getHour());
-
+        String idx = subwayTimeDto.getIdx();
         String[] list = subwayTimeDto.getList();
-        if (subwayTimeDto.getIdx() != "24") {
-            int minuteIdx = 0;
-            for (int i = 0; i < list.length; i++) {
-                if (minuteIdx > 2)
-                    break;
 
-                if ((hour[1].compareTo("0") == 0) && (list[i].compareTo(nowMinute) > 0)) {
-                    minute[minuteIdx++] = list[i];
-                }
-                else if((hour[1].compareTo("0") == 0) && (list[i].compareTo(nowMinute) <= 0)) {
-                    hour[1] = String.valueOf(now.getHour() + 1);
-                    minute[minuteIdx++] = list[i];
-
-                }
-                else {
-                    minute[minuteIdx++] = list[i];
-                }
+        for (int i = 0; i < list.length - 1; i++) {
+            if (result.size() == 4)
+                break;
+            if (list[i].compareTo(list[i + 1]) < 0) {
+                LocalDateTime cmp = LocalDateTime.of(LocalDate.now(), LocalTime.of(Integer.parseInt(idx), Integer.parseInt(list[i])));
+                if(now.compareTo(cmp) < 0 && (result.size() != 4))
+                    result.add(cmp);
+            }
+            else if ((list[i].compareTo(list[i + 1]) > 0) && (i > list.length / 2 - 1)) {
+                LocalDateTime cmp = LocalDateTime.of(LocalDate.now(), LocalTime.of(Integer.parseInt(idx), Integer.parseInt(list[i])));
+                if(now.compareTo(cmp) < 0 && (result.size() != 4))
+                    result.add(cmp);
+                idx = String.valueOf(Integer.parseInt(idx) + 1);
             }
         }
 
-        subwayTimeResponse.setIdx(hour);
-        subwayTimeResponse.setList(minute);
+        subwayTimeResponse.setTimes(result);
 
         return subwayTimeResponse;
     }
