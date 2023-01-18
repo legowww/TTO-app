@@ -80,39 +80,62 @@ public class SubwayArrivalService {
             JSONObject json = (JSONObject) parser.parse(url.toString());
             JSONObject result = (JSONObject) json.get("result");
 
+            JSONObject time;
+            String idx;
+            String list;
+            String[] replaceList1;
+            JSONObject time2;
+            String list2;
+            String[] replaceList2;
+            String[] resultList = new String[0];
+
             if (String.valueOf(now.getDayOfWeek()) == "SATURDAY") {
                 JSONObject satList = (JSONObject) result.get("SatList");
                 if (wayCode == "1") {
                     JSONObject up = (JSONObject) satList.get("up");
                     JSONArray times = (JSONArray) up.get ("time");
-                    if((now.getHour() >= 5) && (now.getHour() < 25)) {
-                        JSONObject time = (JSONObject) times.get(now.getHour() - 5);
-                        String idx = time.get("Idx").toString();
-                        String list = (String) time.get("list");
-                        String[] replaceList1 = splitList(list);
+                    if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
+                        if (now.getHour() == 0) {
+                            time = (JSONObject) times.get(19);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            resultList = splitList(list);
+                        }
+                        else {
+                            time = (JSONObject) times.get(now.getHour() - 5);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            replaceList1 = splitList(list);
 
-                        JSONObject time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
-                        String list2 = (String) time2.get("list");
-                        String[] replaceList2 = splitList(list2);
-                        String[] resultList = combineList(replaceList1, replaceList2);
-
+                            time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
+                            list2 = (String) time2.get("list");
+                            replaceList2 = splitList(list2);
+                            resultList = combineList(replaceList1, replaceList2);
+                        }
                         return new SubwayTimeDto(idx, resultList);
                     }
                 }
                 else {
                     JSONObject down = (JSONObject) satList.get("down");
                     JSONArray times = (JSONArray) down.get ("time");
-                    if((now.getHour() >= 5) && (now.getHour() < 25)) {
-                        JSONObject time = (JSONObject) times.get(now.getHour() - 5);
-                        String idx = time.get("Idx").toString();
-                        String list = (String) time.get("list");
-                        String[] replaceList1 = splitList(list);
+                    if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
+                        if (now.getHour() == 0) {
+                            time = (JSONObject) times.get(19);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            resultList = splitList(list);
+                        }
+                        else {
+                            time = (JSONObject) times.get(now.getHour() - 5);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            replaceList1 = splitList(list);
 
-                        JSONObject time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
-                        String list2 = (String) time2.get("list");
-                        String[] replaceList2 = splitList(list2);
-                        String[] resultList = combineList(replaceList1, replaceList2);
-
+                            time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
+                            list2 = (String) time2.get("list");
+                            replaceList2 = splitList(list2);
+                            resultList = combineList(replaceList1, replaceList2);
+                        }
                         return new SubwayTimeDto(idx, resultList);
                     }
                 }
@@ -124,34 +147,48 @@ public class SubwayArrivalService {
                 if (wayCode == "1") {
                     JSONObject up = (JSONObject) sunList.get("up");
                     JSONArray times = (JSONArray) up.get ("time");
-                    if((now.getHour() >= 5) && (now.getHour() < 25)) {
-                        JSONObject time = (JSONObject) times.get(now.getHour() - 5);
-                        String idx = time.get("Idx").toString();
-                        String list = (String) time.get("list");
-                        String[] replaceList1 = splitList(list);
+                    if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
+                        if (now.getHour() == 0) {
+                            time = (JSONObject) times.get(19);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            resultList = splitList(list);
+                        }
+                        else {
+                            time = (JSONObject) times.get(now.getHour() - 5);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            replaceList1 = splitList(list);
 
-                        JSONObject time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
-                        String list2 = (String) time2.get("list");
-                        String[] replaceList2 = splitList(list2);
-                        String[] resultList = combineList(replaceList1, replaceList2);
-
+                            time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
+                            list2 = (String) time2.get("list");
+                            replaceList2 = splitList(list2);
+                            resultList = combineList(replaceList1, replaceList2);
+                        }
                         return new SubwayTimeDto(idx, resultList);
                     }
                 }
                 else {
                     JSONObject down = (JSONObject) sunList.get("down");
                     JSONArray times = (JSONArray) down.get ("time");
-                    if((now.getHour() >= 5) && (now.getHour() < 25)) {
-                        JSONObject time = (JSONObject) times.get(now.getHour() - 5);
-                        String idx = time.get("Idx").toString();
-                        String list = (String) time.get("list");
-                        String[] replaceList1 = splitList(list);
+                    if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
+                        if (now.getHour() == 0) {
+                            time = (JSONObject) times.get(19);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            resultList = splitList(list);
+                        }
+                        else {
+                            time = (JSONObject) times.get(now.getHour() - 5);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            replaceList1 = splitList(list);
 
-                        JSONObject time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
-                        String list2 = (String) time2.get("list");
-                        String[] replaceList2 = splitList(list2);
-                        String[] resultList = combineList(replaceList1, replaceList2);
-
+                            time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
+                            list2 = (String) time2.get("list");
+                            replaceList2 = splitList(list2);
+                            resultList = combineList(replaceList1, replaceList2);
+                        }
                         return new SubwayTimeDto(idx, resultList);
                     }
                 }
@@ -161,34 +198,48 @@ public class SubwayArrivalService {
                 if (wayCode == "1") {
                     JSONObject up = (JSONObject) ordList.get("up");
                     JSONArray times = (JSONArray) up.get ("time");
-                    if((now.getHour() >= 5) && (now.getHour() < 25)) {
-                        JSONObject time = (JSONObject) times.get(now.getHour() - 5);
-                        String idx = time.get("Idx").toString();
-                        String list = (String) time.get("list");
-                        String[] replaceList1 = splitList(list);
+                    if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
+                        if (now.getHour() == 0) {
+                            time = (JSONObject) times.get(19);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            resultList = splitList(list);
+                        }
+                        else {
+                            time = (JSONObject) times.get(now.getHour() - 5);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            replaceList1 = splitList(list);
 
-                        JSONObject time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
-                        String list2 = (String) time2.get("list");
-                        String[] replaceList2 = splitList(list2);
-                        String[] resultList = combineList(replaceList1, replaceList2);
-
+                            time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
+                            list2 = (String) time2.get("list");
+                            replaceList2 = splitList(list2);
+                            resultList = combineList(replaceList1, replaceList2);
+                        }
                         return new SubwayTimeDto(idx, resultList);
                     }
                 }
                 else {
                     JSONObject down = (JSONObject) ordList.get("down");
                     JSONArray times = (JSONArray) down.get ("time");
-                    if((now.getHour() >= 5) && (now.getHour() < 25)) {
-                        JSONObject time = (JSONObject) times.get(now.getHour() - 5);
-                        String idx = time.get("Idx").toString();
-                        String list = (String) time.get("list");
-                        String[] replaceList1 = splitList(list);
+                    if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
+                        if (now.getHour() == 0) {
+                            time = (JSONObject) times.get(19);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            resultList = splitList(list);
+                        }
+                        else {
+                            time = (JSONObject) times.get(now.getHour() - 5);
+                            idx = time.get("Idx").toString();
+                            list = (String) time.get("list");
+                            replaceList1 = splitList(list);
 
-                        JSONObject time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
-                        String list2 = (String) time2.get("list");
-                        String[] replaceList2 = splitList(list2);
-                        String[] resultList = combineList(replaceList1, replaceList2);
-
+                            time2 = (JSONObject) times.get(now.getHour() - 5 + 1);
+                            list2 = (String) time2.get("list");
+                            replaceList2 = splitList(list2);
+                            resultList = combineList(replaceList1, replaceList2);
+                        }
                         return new SubwayTimeDto(idx, resultList);
                     }
                 }
