@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             errorMessage = "unfounded username";
         }
         else if (failed instanceof BadCredentialsException) {
-            errorMessage = "wrong username or password";
+            errorMessage = "wrong password";
         }
         else {
             errorMessage = "unidentified Error";
