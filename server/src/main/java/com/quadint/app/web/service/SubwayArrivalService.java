@@ -44,6 +44,12 @@ public class SubwayArrivalService {
         for (int i = 0; i < list.length - 1; i++) {
             if (result.size() == 4)
                 break;
+            if ((idx.compareTo("24") == 0) || (idx.compareTo("0") == 0)) {
+                idx = "0";
+                LocalDateTime cmp = LocalDateTime.of(LocalDate.now(), LocalTime.of(Integer.parseInt(idx), Integer.parseInt(list[i])));
+                if(result.size() != 4)
+                    result.add(cmp);
+            }
             if (list[i].compareTo(list[i + 1]) < 0) {
                 LocalDateTime cmp = LocalDateTime.of(LocalDate.now(), LocalTime.of(Integer.parseInt(idx), Integer.parseInt(list[i])));
                 if(now.compareTo(cmp) < 0 && (result.size() != 4))
@@ -56,7 +62,10 @@ public class SubwayArrivalService {
                 idx = String.valueOf(Integer.parseInt(idx) + 1);
             }
         }
-
+        if(result.size() != 4){
+            LocalDateTime cmp = LocalDateTime.of(LocalDate.now(), LocalTime.of(Integer.parseInt(idx), Integer.parseInt(list[list.length - 1])));
+            result.add(cmp);
+        }
         subwayTimeResponse.setTimes(result);
 
         return subwayTimeResponse;
