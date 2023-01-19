@@ -55,7 +55,7 @@ public class SubwayArrivalService {
                 if(now.compareTo(cmp) < 0 && (result.size() != 4))
                     result.add(cmp);
             }
-            else if ((list[i].compareTo(list[i + 1]) > 0) && (i > list.length / 2 - 1)) {
+            else if ((list[i].compareTo(list[i + 1]) > 0) && (i >= (list.length / 2 - 2))) {
                 LocalDateTime cmp = LocalDateTime.of(LocalDate.now(), LocalTime.of(Integer.parseInt(idx), Integer.parseInt(list[i])));
                 if(now.compareTo(cmp) < 0 && (result.size() != 4))
                     result.add(cmp);
@@ -89,9 +89,9 @@ public class SubwayArrivalService {
             String[] replaceList2;
             String[] resultList = new String[0];
 
-            if (String.valueOf(now.getDayOfWeek()) == "SATURDAY") {
+            if (String.valueOf(now.getDayOfWeek()).equals("SATURDAY")) {
                 JSONObject satList = (JSONObject) result.get("SatList");
-                if (wayCode == "1") {
+                if (wayCode.equals("1")) {
                     JSONObject up = (JSONObject) satList.get("up");
                     JSONArray times = (JSONArray) up.get ("time");
                     if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
@@ -142,9 +142,9 @@ public class SubwayArrivalService {
 
 
             }
-            else if (String.valueOf(now.getDayOfWeek()) == "SUNDAY") {
+            else if (String.valueOf(now.getDayOfWeek()).equals("SUNDAY")) {
                 JSONObject sunList = (JSONObject) result.get("SunList");
-                if (wayCode == "1") {
+                if (wayCode.equals("1")) {
                     JSONObject up = (JSONObject) sunList.get("up");
                     JSONArray times = (JSONArray) up.get ("time");
                     if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
@@ -195,7 +195,7 @@ public class SubwayArrivalService {
             }
             else {
                 JSONObject ordList = (JSONObject) result.get("OrdList");
-                if (wayCode == "1") {
+                if (wayCode.equals("1")) {
                     JSONObject up = (JSONObject) ordList.get("up");
                     JSONArray times = (JSONArray) up.get ("time");
                     if(((now.getHour() >= 5) && (now.getHour() < 25)) || (now.getHour() == 0)) {
