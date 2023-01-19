@@ -1,9 +1,11 @@
 package com.quadint.app.domain.route;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quadint.app.domain.transportation.Bus;
 import com.quadint.app.domain.transportation.Subway;
 import com.quadint.app.domain.transportation.TransportationType;
 import com.quadint.app.domain.transportation.Transportation;
+import com.quadint.app.web.exception.TtoAppException;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -30,8 +32,9 @@ public class Route implements Comparable<Route>{
         return this.totalTime - o.totalTime;
     }
 
+    @JsonIgnore
     public List<String> getFirstTransportation() {
-        Integer walkTime = 0; //처음으로 탑승장까지 도보로 걷는 시간
+        Integer walkTime = 0;
         for (int i = 0; i < transportationList.size(); ++i) {
             Transportation t = transportationList.get(i);
 
@@ -47,8 +50,7 @@ public class Route implements Comparable<Route>{
                 return List.of(TransportationType.SUBWAY.name(), subway.getStartID(), subway.getWayCode(), walkTime.toString());
             }
         }
-        //todo: 경로에 도보만 있는 경우 예외처리 추가
-        return null;
+        throw new TtoAppException("only walk path");
     }
 
     private List<Transportation> getTransportation() {

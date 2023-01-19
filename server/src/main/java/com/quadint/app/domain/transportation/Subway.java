@@ -24,6 +24,6 @@ public class Subway extends Transportation{
 
     @Override
     public String toString() {
-        return startName + "역 에서 " + super.getTime() + "분 소요하여 " + endName + "역 까지 이동";
+        return wayCode + "행 " + startName + "(" + startID + ")역 에서 " + super.getTime() + "분 소요하여 " + endName + "역 까지 이동";
     }
 }
