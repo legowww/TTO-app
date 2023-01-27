@@ -19,13 +19,13 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     @Transactional
-    public User join(String username, String password) {
+    public User join(String name, String username, String password) {
         if (userEntityRepository.existsByUsername(username)) {
-            throw new TtoAppException("This ID already exists");
+            throw new TtoAppException("This id already exists");
         }
 
         String encodePassword = encoder.encode(password);
-        UserEntity userEntity = userEntityRepository.save(UserEntity.of(username, encodePassword));
+        UserEntity userEntity = userEntityRepository.save(UserEntity.of(name, username, encodePassword));
         return User.fromEntity(userEntity);
     }
 }
