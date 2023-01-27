@@ -1,12 +1,12 @@
 package com.quadint.app.web.service;
 
+import com.quadint.app.domain.Time;
+import com.quadint.app.domain.route.Route;
 import com.quadint.app.domain.route.TimeRoute;
 import com.quadint.app.domain.time.BusTimeResponse;
-import com.quadint.app.domain.Time;
 import com.quadint.app.domain.time.SubwayTimeResponse;
 import com.quadint.app.domain.transportation.*;
 import com.quadint.app.web.controller.request.LocationCoordinateRequest;
-import com.quadint.app.domain.route.Route;
 import com.quadint.app.web.exception.TtoAppException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

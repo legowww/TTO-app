@@ -2,7 +2,6 @@ package com.quadint.app.web.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.quadint.app.web.controller.response.Response;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

@@ -1,7 +1,7 @@
 package com.quadint.app.web.service;
 
-import com.quadint.app.domain.time.BusTimeDto;
 import com.quadint.app.domain.Time;
+import com.quadint.app.domain.time.BusTimeDto;
 import com.quadint.app.domain.time.BusTimeResponse;
 import com.quadint.app.web.exception.TtoAppException;
 import lombok.extern.slf4j.Slf4j;
