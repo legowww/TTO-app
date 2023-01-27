@@ -32,10 +32,15 @@ public class SubwayArrivalService {
     public SubwayTimeResponse getTimeResponse(String stationId, String wayCode) {
         LocalDateTime now = LocalDateTime.now();
         LocalDate nowDate = LocalDate.now();
+
         List<LocalDateTime> result = new ArrayList<>();
         SubwayTimeResponse subwayTimeResponse = SubwayTimeResponse.createSubwayTimeResponse(stationId, wayCode);
         try {
             SubwayTimeDto subwayTimeDto = getSubwayArrivalStationTime(stationId, wayCode);
+
+            if (subwayTimeDto == null) {
+                return subwayTimeResponse;
+            }
 
             String idx = subwayTimeDto.getIdx();
             String[] list = subwayTimeDto.getList();
