@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.round
 
 class Routelist : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,12 @@ class Routelist : AppCompatActivity() {
         val destination = geocoder.getFromLocationName(end, 1)
 
         // 출발지, 목적지 위도 경도값
-        val lc = LocationCoordinate(startpoint[0].latitude.toString(), startpoint[0].longitude.toString(), destination[0].latitude.toString(), destination[0].longitude.toString())
+        val lc = LocationCoordinate((round(startpoint[0].longitude * 1000000) / 1000000).toString(), (round(startpoint[0].latitude * 1000000) / 1000000).toString(), (round(destination[0].longitude * 1000000) / 1000000).toString(), (round(destination[0].latitude * 1000000) / 1000000).toString())
+
+        println(round(startpoint[0].latitude * 1000000) / 1000000)
+        println(round(startpoint[0].longitude * 1000000) / 1000000)
+        println(round(destination[0].latitude * 1000000) / 1000000)
+        println(round(destination[0].longitude * 1000000) / 1000000)
 
         //경로를 받을 리스트 생성
         var responseTimeRoutes =  ArrayList<TimeRoute>()
@@ -59,7 +65,7 @@ class Routelist : AppCompatActivity() {
                     var count : (Int) = 0 // 받아온 데이터 개수 카운터
                     for (timeRoute in timeRoutes) {
                         //경로 추가(최대 5개 까지 담길 수 있음)
-                        //println("${timeRoute.time}")
+                        println("${timeRoute.time}")
                         time[count].setText(timeRoute.time)
                         responseTimeRoutes.add(timeRoute)
                         count++

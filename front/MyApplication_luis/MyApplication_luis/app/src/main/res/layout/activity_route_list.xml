@@ -15,14 +15,14 @@
         android:fontFamily="@font/jalnan"
         android:gravity="center"
         android:text="검색결과"
-        android:textSize="30dp"
+        android:textSize="40dp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.049" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
