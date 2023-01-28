@@ -80,7 +80,7 @@ class Routelist : AppCompatActivity() {
         })
 
         //val back = Intent(this,MainActivity::class.java)
-        //val star = Intent(this,Login::class.java)
+        val star = Intent(this,Favorites::class.java)
         val home = Intent(this, MainActivity::class.java)
         val reload = Intent(this, Routelist::class.java)
         val account = Intent(this, Mypage::class.java)
@@ -96,6 +96,7 @@ class Routelist : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> startActivity(home)
+                    1 -> startActivity(star)
                     2 -> startActivity(home)
                     3 -> startActivity(reload)
                     4 -> startActivity(account)

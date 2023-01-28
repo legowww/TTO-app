@@ -12,7 +12,7 @@ class Mypage : AppCompatActivity() {
         setContentView(R.layout.activity_my_page)
 
         //val back = Intent(this,MainActivity::class.java)
-        //val star = Intent(this,Login::class.java)
+        val star = Intent(this,Favorites::class.java)
         val home = Intent(this, MainActivity::class.java)
         val account = Intent(this, Mypage::class.java)
 
@@ -27,6 +27,7 @@ class Mypage : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> startActivity(home)
+                    1 -> startActivity(star)
                     2 -> startActivity(home)
                     3 -> startActivity(account)
                     4 -> startActivity(account)

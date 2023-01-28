@@ -25,24 +25,24 @@
 
     <LinearLayout
         android:layout_width="409dp"
-        android:layout_height="600dp"
+        android:layout_height="550dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.7">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="289dp"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:fontFamily="@font/jalnan"
                 android:gravity="center"
                 android:text="출발지 -> 목적지"
@@ -52,8 +52,9 @@
             <ImageButton
                 android:id="@+id/button"
                 android:layout_width="40dp"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
+                android:padding="4dp"
                 android:src="@drawable/edit"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
@@ -62,7 +63,7 @@
             <ImageButton
                 android:id="@+id/button2"
                 android:layout_width="40dp"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 android:src="@drawable/trash_can"
                 android:scaleType="fitCenter"
@@ -70,4 +71,51 @@
                 android:background="@color/transparent"/>
         </LinearLayout>
     </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:tabIndicatorColor="@color/orange">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/back" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/star"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/refresh"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/account"/>
+
+    </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
