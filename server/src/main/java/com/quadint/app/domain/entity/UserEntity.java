@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class UserEntity {
-
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Integer id;
     @Setter @Column(nullable = false) String name;
     @Setter @Column(nullable = false) String username;

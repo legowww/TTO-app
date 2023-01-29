@@ -21,7 +21,6 @@ import java.util.List;
 @Slf4j
 public class MainController {
     private final RouteService routeService;
-    private final SubwayArrivalService subwayArrivalService;
 
     @PostMapping("/route")
     @ResponseBody
@@ -36,13 +35,6 @@ public class MainController {
         LocationCoordinateRequest lc = new LocationCoordinateRequest("126.6800897", "37.4078889", "126.6567643", "37.3818519"); // 스퀘어앞 한양1차->송현아
         List<TimeRoute> result = routeService.calculateRoute(lc);
         return Response.success(result);
-    }
-
-    @GetMapping("/subway")
-    @ResponseBody
-    public SubwayTimeResponse subwayTimeResponseTest() {
-        SubwayTimeResponse timeResponse = subwayArrivalService.getTimeResponse("20131", "1");
-        return timeResponse;
     }
 }
 
