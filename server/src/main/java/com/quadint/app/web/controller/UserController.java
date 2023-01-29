@@ -8,6 +8,7 @@ import com.quadint.app.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +21,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public Response<String> join(@RequestBody UserJoinRequest request) {
-        User user = userService.join(request.getUsername(), request.getPassword());
-        return Response.success(user.toString());
+    public Response<Void> join(@Validated @RequestBody UserJoinRequest request) {
+        User user = userService.join(request.getName(), request.getUsername(), request.getPassword());
+        return Response.success();
     }
 
     @GetMapping("/test")
