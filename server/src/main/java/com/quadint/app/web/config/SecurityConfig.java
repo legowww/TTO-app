@@ -1,6 +1,7 @@
 package com.quadint.app.web.config;
 
 
+import com.quadint.app.domain.UserRole;
 import com.quadint.app.web.config.jwt.JwtAuthenticationFilter;
 import com.quadint.app.web.config.jwt.JwtAuthorizationFilter;
 import com.quadint.app.web.exception.CustomEntryPoint;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,6 +45,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .mvcMatchers("/test").authenticated()
+                        .mvcMatchers(HttpMethod.GET, "/favorites").hasRole("USER")
+                        .mvcMatchers(HttpMethod.POST, "/favorites").hasRole("USER")
                         .anyRequest().permitAll()
                 .and()
                         .apply(new MyCustomDsl())
