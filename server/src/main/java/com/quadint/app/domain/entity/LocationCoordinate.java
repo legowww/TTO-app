@@ -1,8 +1,7 @@
 package com.quadint.app.domain.entity;
 
-import com.quadint.app.web.controller.request.LocationCoordinateRequest;
+import com.quadint.app.web.controller.request.FavoriteLocationCoordinateRequest;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
@@ -23,7 +22,7 @@ public class LocationCoordinate {
         this.ey = ey;
     }
 
-    public static LocationCoordinate fromRequest(LocationCoordinateRequest request) {
+    public static LocationCoordinate fromRequest(FavoriteLocationCoordinateRequest request) {
         return new LocationCoordinate(request.getSx(), request.getSy(), request.getEx(), request.getEy());
     }
 }
