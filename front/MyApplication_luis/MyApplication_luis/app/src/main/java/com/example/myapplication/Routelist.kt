@@ -43,12 +43,17 @@ class Routelist : AppCompatActivity() {
         //경로를 받을 리스트 생성
         var responseTimeRoutes =  ArrayList<TimeRoute>()
         val time = ArrayList<TextView>()
+        val totaltime = ArrayList<TextView>()
 
         for (i: Int in 1..5) {
             val timeId : (String) = "time" + i
-            val resId = resources.getIdentifier(timeId, "id", packageName)
-            val tmp : (TextView) = findViewById(resId)
-            time.add(tmp)
+            val totalId : (String) = "totaltime" + i
+            val resId1 = resources.getIdentifier(timeId, "id", packageName)
+            val resId2 = resources.getIdentifier(totalId, "id", packageName)
+            val tmp1 : (TextView) = findViewById(resId1)
+            val tmp2 : (TextView) = findViewById(resId2)
+            time.add(tmp1)
+            totaltime.add(tmp2)
         }
 
         //지도 API 를 통해 LocationCoordinate(좌표) 인스턴스를 받아오면
@@ -65,8 +70,9 @@ class Routelist : AppCompatActivity() {
                     var count : (Int) = 0 // 받아온 데이터 개수 카운터
                     for (timeRoute in timeRoutes) {
                         //경로 추가(최대 5개 까지 담길 수 있음)
-                        println("${timeRoute.time}")
-                        time[count].setText(timeRoute.time)
+                        //println("${timeRoute.time}")
+                        time[count].text = timeRoute.time
+                        totaltime[count].text = timeRoute.route.totalTime.toString() + "분"
                         responseTimeRoutes.add(timeRoute)
                         count++
                     }
