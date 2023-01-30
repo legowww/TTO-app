@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .mvcMatchers("/test").authenticated()
                         .mvcMatchers(HttpMethod.GET, "/favorites").hasRole("USER")
                         .mvcMatchers(HttpMethod.POST, "/favorites").hasRole("USER")
+                        .mvcMatchers(HttpMethod.DELETE, "/favorites/*").hasRole("USER")
                         .anyRequest().permitAll()
                 .and()
                         .apply(new MyCustomDsl())

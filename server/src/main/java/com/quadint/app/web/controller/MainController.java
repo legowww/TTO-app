@@ -2,11 +2,9 @@ package com.quadint.app.web.controller;
 
 
 import com.quadint.app.domain.route.TimeRoute;
-import com.quadint.app.domain.time.SubwayTimeResponse;
 import com.quadint.app.web.controller.request.LocationCoordinateRequest;
 import com.quadint.app.web.controller.response.Response;
 import com.quadint.app.web.service.RouteService;
-import com.quadint.app.web.service.SubwayArrivalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
