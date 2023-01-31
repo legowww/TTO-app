@@ -14,7 +14,6 @@ class Detail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-
         val back = Intent(this,Routelist::class.java)
         val star = Intent(this,Favorites::class.java)
         val home = Intent(this, MainActivity::class.java)
