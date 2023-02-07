@@ -3,12 +3,28 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
 
 class Favorites : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
+
+        val texts = ArrayList<TextView>()
+        val layouts = ArrayList<LinearLayout>()
+
+        for (i: Int in 1..5) {
+            val textId : (String) = "text" + i
+            val layoutId : (String) = "layout" + i
+            val resId1 = resources.getIdentifier(textId, "id", packageName)
+            val resId2 = resources.getIdentifier(layoutId, "id", packageName)
+            val tmp1 : (TextView) = findViewById(resId1)
+            val tmp2 : (LinearLayout) = findViewById(resId2)
+            texts.add(tmp1)
+            layouts.add(tmp2)
+        }
 
         //val back = Intent(this,Routelist::class.java)
         val star = Intent(this,Favorites::class.java)

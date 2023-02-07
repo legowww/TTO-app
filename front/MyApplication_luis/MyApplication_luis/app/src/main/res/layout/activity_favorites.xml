@@ -35,12 +35,53 @@
 
 
         <LinearLayout
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/text1"
+                android:layout_width="289dp"
+                android:layout_height="110dp"
+                android:fontFamily="@font/jalnan"
+                android:gravity="center"
+                android:text="출발지 -> 목적지"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <ImageButton
+                android:id="@+id/modify"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/transparent"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/edit" />
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/trash_can" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text2"
                 android:layout_width="289dp"
                 android:layout_height="110dp"
                 android:fontFamily="@font/jalnan"
@@ -50,7 +91,7 @@
                 android:textColor="@color/black"/>
 
             <ImageButton
-                android:id="@+id/button"
+                android:id="@+id/modify"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
@@ -61,7 +102,124 @@
                 android:background="@color/transparent"/>
 
             <ImageButton
-                android:id="@+id/button2"
+                android:id="@+id/delete"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/trash_can"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@color/transparent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout3"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="289dp"
+                android:layout_height="110dp"
+                android:fontFamily="@font/jalnan"
+                android:gravity="center"
+                android:text="출발지 -> 목적지"
+                android:textSize="25dp"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:id="@+id/modify"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:padding="4dp"
+                android:src="@drawable/edit"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@color/transparent"/>
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/trash_can"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@color/transparent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout4"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="289dp"
+                android:layout_height="110dp"
+                android:fontFamily="@font/jalnan"
+                android:gravity="center"
+                android:text="출발지 -> 목적지"
+                android:textSize="25dp"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:id="@+id/modify"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:padding="4dp"
+                android:src="@drawable/edit"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@color/transparent"/>
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/trash_can"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@color/transparent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout5"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="289dp"
+                android:layout_height="110dp"
+                android:fontFamily="@font/jalnan"
+                android:gravity="center"
+                android:text="출발지 -> 목적지"
+                android:textSize="25dp"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:id="@+id/modify"
+                android:layout_width="40dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:padding="4dp"
+                android:src="@drawable/edit"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:background="@color/transparent"/>
+
+            <ImageButton
+                android:id="@+id/delete"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
