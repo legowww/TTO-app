@@ -8,11 +8,11 @@ import lombok.Getter;
 public class Favorite {
     private Integer id;
     private String name;
-    private LocationCoordinate locationCoordinate;
+    private LocationCoordinate lc;
 
     public Favorite(FavoriteEntity entity) {
         this.id = entity.getId();
         this.name = entity.getName();
-        this.locationCoordinate = entity.getLocationCoordinate();
+        this.lc = entity.getLocationCoordinate();
     }
 }

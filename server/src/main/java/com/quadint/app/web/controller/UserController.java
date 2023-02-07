@@ -35,12 +35,6 @@ public class UserController {
         return Response.success();
     }
 
-    @GetMapping("/test")
-    public Response<String> test(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return Response.success(user.toString());
-    }
-
     @GetMapping("/favorites")
     public Response favorites(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                               Authentication authentication) {
