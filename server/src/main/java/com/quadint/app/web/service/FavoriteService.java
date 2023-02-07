@@ -27,7 +27,7 @@ public class FavoriteService {
     @Transactional
     public void add(Integer userId, FavoriteLocationCoordinateRequest request) {
         if (favoriteEntityRepository.countAllByUserEntity_Id(userId) >= 5) {
-            throw new TtoAppException("you cannot create more than 5 favorites.");
+            throw new TtoAppException("You cannot create more than 5 favorites.");
         }
 
         UserEntity userEntity = userEntityRepository.getOne(userId);
