@@ -21,6 +21,13 @@
         tools:replace="android:appComponentFactory"
         tools:targetApi="32">
         <activity
+            android:name=".Loading"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Favorites"
             android:exported="false">
             <meta-data
