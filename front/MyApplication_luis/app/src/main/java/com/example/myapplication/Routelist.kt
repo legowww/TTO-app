@@ -3,10 +3,10 @@ package com.example.myapplication
 import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.dto.LocationCoordinate
 import com.example.dto.TimeRoute
 import com.example.dto.request.FavoriteLocationCoordinateRequest
@@ -47,18 +47,26 @@ class Routelist : AppCompatActivity() {
         var responseTimeRoutes =  ArrayList<TimeRoute>()
         val time = ArrayList<TextView>()
         val totaltime = ArrayList<TextView>()
+        val layouts = ArrayList<LinearLayout>()
+        val imageView : (ImageView) = findViewById(R.id.imageview)
+        val loadingLayout : (LinearLayout) = findViewById(R.id.loading)
+
+        Glide.with(this).load(R.raw.walk).into(imageView)
 
         for (i: Int in 1..5) {
             val timeId : (String) = "time" + i
             val totalId : (String) = "totaltime" + i
+            val layoutId : (String) = "layout" + i
             val resId1 = resources.getIdentifier(timeId, "id", packageName)
             val resId2 = resources.getIdentifier(totalId, "id", packageName)
+            val resId3 = resources.getIdentifier(layoutId, "id", packageName)
             val tmp1 : (TextView) = findViewById(resId1)
             val tmp2 : (TextView) = findViewById(resId2)
+            val tmp3 : (LinearLayout) = findViewById(resId3)
             time.add(tmp1)
             totaltime.add(tmp2)
+            layouts.add(tmp3)
         }
-
 
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
@@ -77,6 +85,10 @@ class Routelist : AppCompatActivity() {
                         totaltime[count].text = timeRoute.route.totalTime.toString() + "분"
                         responseTimeRoutes.add(timeRoute)
                         count++
+                    }
+                    loadingLayout.visibility = View.GONE
+                    for (i: Int in 0..4) {
+                        layouts[i].visibility = View.VISIBLE
                     }
                 }
                 else {
