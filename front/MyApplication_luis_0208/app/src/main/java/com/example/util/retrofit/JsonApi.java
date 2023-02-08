@@ -7,7 +7,6 @@ import com.example.dto.request.FavoriteLocationCoordinateRequest;
 import com.example.dto.request.JoinRequest;
 import com.example.dto.request.LoginRequest;
 import com.example.dto.response.ServerResponse;
-import com.example.dto.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

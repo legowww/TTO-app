@@ -72,6 +72,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="550dp"
         android:scrollbars="none"
@@ -104,19 +105,19 @@
                         android:id="@+id/time1"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
-                        android:text=""
-                        android:textSize="30dp"
                         android:gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
                     <TextView
                         android:id="@+id/totaltime1"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
                         android:gravity="center"
-                        android:text=""
-                        android:textSize="30dp"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
 
                 </LinearLayout>
@@ -126,9 +127,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:gravity="center"
-                    android:text=""
-                    android:textSize="30dp"
-                    android:textColor="@color/black"/>
+                    android:text="null"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
@@ -146,19 +147,19 @@
                         android:id="@+id/time2"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
-                        android:text=""
-                        android:textSize="30dp"
                         android:gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
                     <TextView
                         android:id="@+id/totaltime2"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
                         android:gravity="center"
-                        android:text=""
-                        android:textSize="30dp"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
 
                 </LinearLayout>
@@ -168,9 +169,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:gravity="center"
-                    android:text=""
-                    android:textSize="30dp"
-                    android:textColor="@color/black"/>
+                    android:text="null"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
@@ -188,19 +189,19 @@
                         android:id="@+id/time3"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
-                        android:text=""
-                        android:textSize="30dp"
                         android:gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
                     <TextView
                         android:id="@+id/totaltime3"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
                         android:gravity="center"
-                        android:text=""
-                        android:textSize="30dp"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
 
                 </LinearLayout>
@@ -210,9 +211,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:gravity="center"
-                    android:text=""
-                    android:textSize="30dp"
-                    android:textColor="@color/black"/>
+                    android:text="null"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
@@ -230,19 +231,19 @@
                         android:id="@+id/time4"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
-                        android:text=""
-                        android:textSize="30dp"
                         android:gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
                     <TextView
                         android:id="@+id/totaltime4"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
                         android:gravity="center"
-                        android:text=""
-                        android:textSize="30dp"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
 
                 </LinearLayout>
@@ -252,9 +253,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:gravity="center"
-                    android:text=""
-                    android:textSize="30dp"
-                    android:textColor="@color/black"/>
+                    android:text="null"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
@@ -272,19 +273,19 @@
                         android:id="@+id/time5"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
-                        android:text=""
-                        android:textSize="30dp"
                         android:gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
                     <TextView
                         android:id="@+id/totaltime5"
                         android:layout_width="204dp"
                         android:layout_height="75dp"
                         android:gravity="center"
-                        android:text=""
-                        android:textSize="30dp"
-                        android:textColor="@color/black"/>
+                        android:text="null"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
 
 
                 </LinearLayout>
@@ -294,13 +295,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:gravity="center"
-                    android:text=""
-                    android:textSize="30dp"
-                    android:textColor="@color/black"/>
+                    android:text="null"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/tempFavoriteAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="46dp"
+        android:text="즐겨찾기"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

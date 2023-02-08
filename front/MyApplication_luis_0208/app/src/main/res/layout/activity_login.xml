@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/busbell" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/loginId"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_weight="1"
@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.499" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/loginPassword"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginBottom="288dp"
@@ -50,7 +50,7 @@
         android:ems="10"
         android:fontFamily="@font/jalnan"
         android:hint="비밀번호"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:textColorHint="@color/black"
@@ -62,7 +62,7 @@
         app:layout_constraintVertical_bias="0.024" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/loginButton"
         android:layout_width="250dp"
         android:layout_height="70dp"
         android:text="로그인"
@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.704" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/transparent"

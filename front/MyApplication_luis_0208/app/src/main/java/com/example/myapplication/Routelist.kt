@@ -5,10 +5,13 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dto.LocationCoordinate
 import com.example.dto.TimeRoute
+import com.example.dto.request.FavoriteLocationCoordinateRequest
 import com.example.dto.response.ServerResponse
+import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
 import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
@@ -56,8 +59,7 @@ class Routelist : AppCompatActivity() {
             totaltime.add(tmp2)
         }
 
-        //지도 API 를 통해 LocationCoordinate(좌표) 인스턴스를 받아오면
-        //defaultRoutes -> getTimeRoute(lc) 메서드로 수정
+
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
             override fun onResponse(
@@ -85,6 +87,44 @@ class Routelist : AppCompatActivity() {
             }
         })
 
+
+        /*
+            2. POST: 즐겨찾기 등록(https://github.com/legowww/time-to-out/issues/44#issuecomment-1409071435)
+         */
+        //즐겨찾기 등록 버튼(예시 용도)
+        val addButton = findViewById<Button>(R.id.tempFavoriteAddButton)
+
+        //추가 버튼 클릭
+        addButton.setOnClickListener {
+            //local storage 에서 token 가져옮
+            val token = App.prefs.token
+
+            //todo: 팝업 창 등을 사용 하여 이름 입력 받기
+            val name : String = "입력된 이름"
+
+            //내가 등록할 즐겨찾기의 정보를 담은 객체(이름, 좌표...)
+            val enrollRequest = FavoriteLocationCoordinateRequest.fromLocationCoordinate(name, lc);
+
+            //POST 요청 전송
+            RetrofitBuilder.api.addFavorite(token, enrollRequest).enqueue(object : Callback<ServerResponse<String>> {
+                override fun onResponse(
+                    call: Call<ServerResponse<String>>,
+                    response: Response<ServerResponse<String>>
+                ) {
+                    val body = response.body() ?: return
+                    val message = body.message
+                    if (message.equals("success")) {
+                        Toast.makeText(this@Routelist, "즐겨찾기 등록", Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        Toast.makeText(this@Routelist, "즐겨찾기는 5개 이상 등록할 수 없습니다.", Toast.LENGTH_LONG).show()
+                    }
+                }
+                override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
+                }
+            })
+        }
+
         //val back = Intent(this,MainActivity::class.java)
         val star = Intent(this,Favorites::class.java)
         val home = Intent(this, MainActivity::class.java)
@@ -109,10 +149,5 @@ class Routelist : AppCompatActivity() {
                 }
             }
         })
-
-
-
-
-
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.dto.Favorite
+import com.example.dto.request.FavoriteLocationCoordinateRequest
 import com.example.dto.response.ServerResponse
 import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
@@ -40,8 +41,7 @@ class Favorites : AppCompatActivity() {
         /*
             1. GET: 즐겨찾기 조회(https://github.com/legowww/time-to-out/issues/44#issuecomment-1409048102)
          */
-        RetrofitBuilder.api.getFavorites(token).enqueue(object :
-            Callback<ServerResponse<List<Favorite>>> {
+        RetrofitBuilder.api.getFavorites(token).enqueue(object : Callback<ServerResponse<List<Favorite>>> {
             override fun onResponse(
                 call: Call<ServerResponse<List<Favorite>>>,
                 response: Response<ServerResponse<List<Favorite>>>
@@ -68,6 +68,15 @@ class Favorites : AppCompatActivity() {
             override fun onFailure(call: Call<ServerResponse<List<Favorite>>>, t: Throwable) {
             }
         })
+
+
+
+
+
+
+
+
+
 
         //val back = Intent(this,Routelist::class.java)
         val star = Intent(this,Favorites::class.java)

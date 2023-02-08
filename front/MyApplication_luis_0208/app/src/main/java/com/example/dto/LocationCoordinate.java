@@ -1,5 +1,6 @@
 package com.example.dto;
 
+
 public class LocationCoordinate {
     private String sx;
     private String sy;
