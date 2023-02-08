@@ -12,4 +12,30 @@ public class LocationCoordinate {
         this.ex = ex;
         this.ey = ey;
     }
+
+    public String getSx() {
+        return sx;
+    }
+
+    public String getSy() {
+        return sy;
+    }
+
+    public String getEx() {
+        return ex;
+    }
+
+    public String getEy() {
+        return ey;
+    }
+
+    @Override
+    public String toString() {
+        return "LocationCoordinate{" +
+                "sx='" + sx + '\'' +
+                ", sy='" + sy + '\'' +
+                ", ex='" + ex + '\'' +
+                ", ey='" + ey + '\'' +
+                '}';
+    }
 }
