@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/imageview"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:background="@color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,9 +54,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/jalnan"
             android:gravity="center"
-            android:text="불러오는중..."
+            android:text="불러오는중"
+            android:layout_gravity="center"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

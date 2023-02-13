@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import com.bumptech.glide.Glide
 import com.example.dto.LocationCoordinate
 import com.example.dto.TimeRoute
@@ -17,12 +18,25 @@ import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_first_page.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.lang.Exception
+import java.lang.StringBuilder
+import java.net.HttpURLConnection
+import java.net.URL
+import java.net.URLEncoder
 import kotlin.math.round
 
 class Routelist : AppCompatActivity() {
+
+    var pointx: ArrayList<String> = arrayListOf("", "")
+    var pointy: ArrayList<String> = arrayListOf("", "")
+    var locationStr = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_route_list)
@@ -31,17 +45,13 @@ class Routelist : AppCompatActivity() {
         val start = intent.getStringExtra("start").toString()
         val end = intent.getStringExtra("end").toString()
 
-        val geocoder = Geocoder(this)
-        val startpoint = geocoder.getFromLocationName(start, 1)
-        val destination = geocoder.getFromLocationName(end, 1)
+        locationStr = arrayListOf(start, end)
 
-        // 출발지, 목적지 위도 경도값
-        val lc = LocationCoordinate((round(startpoint[0].longitude * 1000000) / 1000000).toString(), (round(startpoint[0].latitude * 1000000) / 1000000).toString(), (round(destination[0].longitude * 1000000) / 1000000).toString(), (round(destination[0].latitude * 1000000) / 1000000).toString())
+        val thread = NetworkThread()
+        thread.start()
+        thread.join()
 
-        println(round(startpoint[0].latitude * 1000000) / 1000000)
-        println(round(startpoint[0].longitude * 1000000) / 1000000)
-        println(round(destination[0].latitude * 1000000) / 1000000)
-        println(round(destination[0].longitude * 1000000) / 1000000)
+        //출발지, 목적지 위도 경도값
 
         //경로를 받을 리스트 생성
         var responseTimeRoutes =  ArrayList<TimeRoute>()
@@ -68,6 +78,9 @@ class Routelist : AppCompatActivity() {
             layouts.add(tmp3)
         }
 
+
+        val lc = LocationCoordinate(pointy[0], pointx[0], pointy[1], pointx[1])
+
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
             override fun onResponse(
@@ -92,7 +105,7 @@ class Routelist : AppCompatActivity() {
                     }
                 }
                 else {
-                    //todo: 조회된 대중교통이 없다. 경고 메시지(버튼)
+                    println(body.message)
                 }
             }
             override fun onFailure(call: Call<ServerResponse<List<TimeRoute>>>, t: Throwable) {
@@ -161,5 +174,59 @@ class Routelist : AppCompatActivity() {
                 }
             }
         })
+    }
+    inner class NetworkThread: Thread(){
+        override fun run() {
+            for (i:Int in 0 .. 1) {
+                val bufferedReader: BufferedReader
+                val stringBuilder = StringBuilder()
+                val query =
+                    "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=" + URLEncoder.encode(
+                        locationStr[i],
+                        "UTF-8"
+                    )
+                val url = URL(query)
+                val conn = url.openConnection() as HttpURLConnection
+                if (conn != null) {
+                    conn.connectTimeout = 5000
+                    conn.readTimeout = 5000
+                    conn.requestMethod = "GET"
+                    conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", "svt7kearbg")
+                    conn.setRequestProperty("X-NCP-APIGW-API-KEY", "Ao8DvzFZWokU3WaGWsYsIcjcVdgNoJJ8iAJxx5fY")
+                    conn.doInput = true
+
+                    val responseCode = conn.responseCode
+
+                    bufferedReader = if (responseCode == 200) {
+                        BufferedReader(InputStreamReader(conn.inputStream))
+                    } else {
+                        BufferedReader(InputStreamReader(conn.errorStream))
+                    }
+
+                    var line: String? = null
+                    while (bufferedReader.readLine().also { line = it } != null) {
+                        stringBuilder.append("""$line""".trimIndent())
+                    }
+
+                    var indexFirst: Int
+                    var indexLast: Int
+
+                    indexFirst = stringBuilder.indexOf("\"x\":\"")
+                    indexLast = stringBuilder.indexOf("\",\"y\":")
+                    val x = stringBuilder.substring(indexFirst + 5, indexLast)
+
+                    indexFirst = stringBuilder.indexOf("\"y\":\"")
+                    indexLast = stringBuilder.indexOf("\",\"distance\":")
+                    val y = stringBuilder.substring(indexFirst + 5, indexLast)
+
+                    pointx[i] = x
+                    pointy[i] = y
+
+                    bufferedReader.close()
+                    conn.disconnect()
+                }
+            }
+
+        }
     }
 }

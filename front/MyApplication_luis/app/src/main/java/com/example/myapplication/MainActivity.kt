@@ -2,35 +2,30 @@ package com.example.myapplication
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
-import android.location.LocationRequest
 import android.os.Bundle
-import android.os.Looper
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.widget.EditText
-import android.widget.FrameLayout
+import android.view.View
+import android.widget.*
 import androidx.annotation.NonNull
-import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Transformations.map
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.naver.maps.geometry.LatLng
-import com.naver.maps.map.*
+import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.MapView
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -40,6 +35,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationSource: FusedLocationSource
     private lateinit var naverMap: NaverMap
     private val marker = Marker()
+    var startAddr = ArrayList<String>()
+    var endAddr = ArrayList<String>()
+    lateinit var start: CharSequence
+    lateinit var end: CharSequence
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +50,97 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         locationSource = FusedLocationSource(this, LOCATION_PERMISSTION_REQUEST_CODE)
+        val eText1 = findViewById<EditText>(R.id.start)
+        val eText2 = findViewById<EditText>(R.id.end)
+        val list1 = findViewById<ScrollView>(R.id.listview1)
+        val list2 = findViewById<ScrollView>(R.id.listview2)
+        val search1 = findViewById<Button>(R.id.searchbtn1)
+        val search2 = findViewById<Button>(R.id.searchbtn2)
+        val text1 = ArrayList<TextView>()
+        val text2 = ArrayList<TextView>()
 
-        val eText1 = findViewById<EditText>(R.id.startEditText)
-        val eText2 = findViewById<EditText>(R.id.endEditText)
+        for (i: Int in 0..4) {
+            startAddr.add("")
+            endAddr.add("")
+        }
+        for (i: Int in 0 .. 4) {
+            val textId : (String) = "text" + i
+            val resId1 = resources.getIdentifier(textId, "id", packageName)
+            val tmp : (TextView) = findViewById(resId1)
+            text1.add(tmp)
+        }
+        for (i: Int in 5 .. 9) {
+            val textId : (String) = "text" + i
+            val resId = resources.getIdentifier(textId, "id", packageName)
+            val tmp : (TextView) = findViewById(resId)
+            text2.add(tmp)
+        }
+
+        // if edittext is focus visibility change? -> idea
+        search1.setOnClickListener{
+            for (i:Int in 0 .. 4) {
+                text1[i].text = startAddr[i]
+            }
+            list1.visibility = View.VISIBLE
+        }
+
+        search2.setOnClickListener{
+            for (i:Int in 0 .. 4) {
+                text2[i].text = endAddr[i]
+            }
+            list2.visibility = View.VISIBLE
+        }
+
+        for (i: Int in 0 .. 4) {
+            text1[i].setOnClickListener{
+                start = text1[i].text
+                list1.visibility = View.GONE
+                println(start)
+            }
+        }
+        for (i: Int in 0 .. 4) {
+            text2[i].setOnClickListener{
+                end = text2[i].text
+                list2.visibility = View.GONE
+                println(end)
+            }
+        }
+
+        eText1.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                val thread = NetworkThread1()
+                thread.start()
+                thread.join()
+            }
+        })
+
+        eText2.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val thread = NetworkThread2()
+                thread.start()
+                thread.join()
+            }
+        })
+
         eText2.setOnKeyListener { view, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
                 val subIntent = Intent(this@MainActivity, Routelist::class.java)
-                subIntent.putExtra("start", eText1.text.toString())
-                subIntent.putExtra("end", eText2.text.toString())
+                subIntent.putExtra("start", start)
+                subIntent.putExtra("end", end)
                 startActivity(subIntent)
             }
             true
@@ -133,5 +216,82 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+
+    inner class NetworkThread1: Thread(){
+        override fun run() {
+            val eText1 = findViewById<TextView>(R.id.start)
+            val site = "https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=5&keyword="+eText1.text+
+                    "&confmKey=devU01TX0FVVEgyMDIzMDIxMDIwMzgzNDExMzUwMTU=&resultType=json"
+            val url = URL(site)
+            val conn = url.openConnection()
+            val input = conn.getInputStream()
+            val isr = InputStreamReader(input)
+            val br = BufferedReader(isr)
+
+            try {
+                var str: String? = null
+                val buf = StringBuffer()
+
+                do{
+                    str = br.readLine()
+
+                    if(str!=null){
+                        buf.append(str)
+                    }
+                }while (str!=null)
+
+                val root = JSONObject(buf.toString())
+                val tmp = root.getJSONObject("results").get("juso")
+                if (eText1.length() <= 2 || tmp.equals(null)) {
+                    return
+                } else {
+                    val response = root.getJSONObject("results").getJSONArray("juso")
+                    for (i in 0 until response.length()) {
+                        startAddr[i] = response.getJSONObject(i).get("jibunAddr").toString()
+                    }
+                }
+            } catch (e: java.lang.NullPointerException) {
+                return
+            }
+        }
+    }
+    inner class NetworkThread2: Thread(){
+        override fun run() {
+            val eText2 = findViewById<EditText>(R.id.end)
+            val site = "https://business.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=5&keyword="+eText2.text+
+                    "&confmKey=devU01TX0FVVEgyMDIzMDIxMDIwMzgzNDExMzUwMTU=&resultType=json"
+            val url = URL(site)
+            val conn = url.openConnection()
+            val input = conn.getInputStream()
+            val isr = InputStreamReader(input)
+            val br = BufferedReader(isr)
+
+            try {
+                var str: String? = null
+                val buf = StringBuffer()
+
+                do{
+                    str = br.readLine()
+
+                    if(str!=null){
+                        buf.append(str)
+                    }
+                }while (str!=null)
+
+                val root = JSONObject(buf.toString())
+                val tmp = root.getJSONObject("results").get("juso")
+                if (eText2.length() <= 2 ||tmp.equals(null)) {
+                    return
+                } else {
+                    val response = root.getJSONObject("results").getJSONArray("juso")
+                    for (i in 0 until response.length()) {
+                        endAddr[i] = response.getJSONObject(i).get("jibunAddr").toString()
+                    }
+                }
+            } catch (e: java.lang.NullPointerException) {
+                return
+            }
+        }
     }
 }
