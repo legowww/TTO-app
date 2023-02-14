@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/favorites")
-    public Response favorites(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+    public Response<List<Favorite>> favorites(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                               Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         List<Favorite> favorites = favoriteService.favorites(user.getId(), pageable);
