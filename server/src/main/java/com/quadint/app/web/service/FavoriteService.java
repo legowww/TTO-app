@@ -3,7 +3,7 @@ package com.quadint.app.web.service;
 
 import com.quadint.app.domain.Favorite;
 import com.quadint.app.domain.entity.FavoriteEntity;
-import com.quadint.app.domain.entity.LocationCoordinate;
+import com.quadint.app.domain.LocationCoordinate;
 import com.quadint.app.domain.entity.UserEntity;
 import com.quadint.app.web.controller.request.FavoriteLocationCoordinateRequest;
 import com.quadint.app.web.exception.TtoAppException;
