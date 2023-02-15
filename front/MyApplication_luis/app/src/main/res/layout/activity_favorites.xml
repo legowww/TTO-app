@@ -63,7 +63,7 @@
                 android:src="@drawable/edit" />
 
             <ImageButton
-                android:id="@+id/delete"
+                android:id="@+id/delete1"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
@@ -102,7 +102,7 @@
                 android:background="@color/transparent"/>
 
             <ImageButton
-                android:id="@+id/delete"
+                android:id="@+id/delete2"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
@@ -141,7 +141,7 @@
                 android:background="@color/transparent"/>
 
             <ImageButton
-                android:id="@+id/delete"
+                android:id="@+id/delete3"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
@@ -180,7 +180,7 @@
                 android:background="@color/transparent"/>
 
             <ImageButton
-                android:id="@+id/delete"
+                android:id="@+id/delete4"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
@@ -219,7 +219,7 @@
                 android:background="@color/transparent"/>
 
             <ImageButton
-                android:id="@+id/delete"
+                android:id="@+id/delete5"
                 android:layout_width="40dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"

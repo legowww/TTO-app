@@ -26,6 +26,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.Exception
 import java.lang.StringBuilder
+import java.lang.Thread.sleep
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -78,8 +79,38 @@ class Routelist : AppCompatActivity() {
             layouts.add(tmp3)
         }
 
+        //val back = Intent(this,MainActivity::class.java)
+        val star = Intent(this,Favorites::class.java)
+        val home = Intent(this, MainActivity::class.java)
+        val reload = Intent(this, Routelist::class.java)
+        val account = Intent(this, Mypage::class.java)
 
-        val lc = LocationCoordinate(pointy[0], pointx[0], pointy[1], pointx[1])
+        val tabs : (TabLayout) = findViewById(R.id.tabs)
+        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab!!.position) {
+                    0 -> startActivity(home)
+                    1 -> startActivity(star)
+                    2 -> startActivity(home)
+                    3 -> startActivity(reload)
+                    4 -> startActivity(account)
+                }
+            }
+        })
+
+        try {
+            sleep(1000)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+
+        val lc = LocationCoordinate(pointx[0], pointy[0], pointx[1], pointy[1])
 
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
@@ -150,30 +181,7 @@ class Routelist : AppCompatActivity() {
             })
         }
 
-        //val back = Intent(this,MainActivity::class.java)
-        val star = Intent(this,Favorites::class.java)
-        val home = Intent(this, MainActivity::class.java)
-        val reload = Intent(this, Routelist::class.java)
-        val account = Intent(this, Mypage::class.java)
 
-        val tabs : (TabLayout) = findViewById(R.id.tabs)
-        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab!!.position) {
-                    0 -> startActivity(home)
-                    1 -> startActivity(star)
-                    2 -> startActivity(home)
-                    3 -> startActivity(reload)
-                    4 -> startActivity(account)
-                }
-            }
-        })
     }
     inner class NetworkThread: Thread(){
         override fun run() {

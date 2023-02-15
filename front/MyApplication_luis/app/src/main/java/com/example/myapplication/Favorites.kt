@@ -3,6 +3,8 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.dto.Favorite
@@ -11,6 +13,7 @@ import com.example.dto.response.ServerResponse
 import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_favorites.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,16 +25,21 @@ class Favorites : AppCompatActivity() {
 
         val texts = ArrayList<TextView>()
         val layouts = ArrayList<LinearLayout>()
+        val deletes = ArrayList<ImageButton>()
 
         for (i: Int in 1..5) {
             val textId : (String) = "text" + i
             val layoutId : (String) = "layout" + i
+            val deleteId : (String) = "delete" + i
             val resId1 = resources.getIdentifier(textId, "id", packageName)
             val resId2 = resources.getIdentifier(layoutId, "id", packageName)
+            val resId3 = resources.getIdentifier(deleteId, "id", packageName)
             val tmp1 : (TextView) = findViewById(resId1)
             val tmp2 : (LinearLayout) = findViewById(resId2)
+            val tmp3 : (ImageButton) = findViewById(resId3)
             texts.add(tmp1)
             layouts.add(tmp2)
+            deletes.add(tmp3)
         }
 
         //local storage 에서 token 가져옮
@@ -48,6 +56,7 @@ class Favorites : AppCompatActivity() {
             ) {
                 val body = response.body() ?: return
                 val message = body.message
+                var count = 0
                 if (message.equals("success")) {
                     val myEnrollFavoriteCount = body.result.size //내가 등록한 즐겨찾기 개수
 
@@ -60,6 +69,8 @@ class Favorites : AppCompatActivity() {
                         println("내 즐겨찾기 개수=$myEnrollFavoriteCount")
                         //출력 확인
                         for (favorite in favorites) {
+                            texts[count].text = favorite.name
+                            layouts[count].visibility = View.VISIBLE
                             println("[info] ====== id=${favorite.id} name=${favorite.name}, lc=${favorite.lc} ======")
                         }
                     }
@@ -69,14 +80,12 @@ class Favorites : AppCompatActivity() {
             }
         })
 
-
-
-
-
-
-
-
-
+        for (i: Int in 0 .. 4) {
+            deletes[i].setOnClickListener {
+                texts[i].text = ""
+                layouts[i].visibility = View.GONE
+            }
+        }
 
         //val back = Intent(this,Routelist::class.java)
         val star = Intent(this,Favorites::class.java)
