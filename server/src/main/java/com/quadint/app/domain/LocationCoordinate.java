@@ -1,4 +1,4 @@
-package com.quadint.app.domain.entity;
+package com.quadint.app.domain;
 
 import com.quadint.app.web.controller.request.FavoriteLocationCoordinateRequest;
 import lombok.Getter;
