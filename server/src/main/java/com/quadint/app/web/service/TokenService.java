@@ -1,6 +1,7 @@
 package com.quadint.app.web.service;
 
 
+import com.quadint.app.domain.User;
 import com.quadint.app.domain.UserRole;
 import com.quadint.app.domain.entity.TokenEntity;
 import com.quadint.app.web.exception.TtoAppException;
@@ -10,6 +11,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,11 +31,9 @@ public class TokenService {
 
     @Transactional
     public void save(Integer userId, String token) {
-        log.info("[0]");
         Optional<TokenEntity> optionalTokenEntity = tokenEntityRepository.findByUserId(userId);
 
         if (optionalTokenEntity.isPresent()) {
-            log.info("[1]");
             TokenEntity tokenEntity = optionalTokenEntity.get();
             //refresh token update
             tokenEntity.setToken(token);
@@ -68,6 +68,7 @@ public class TokenService {
             }
 
             TokenEntity tokenEntity = optionalTokenEntity.get();
+            log.info("id={} 의 액세스 토큰 재발급", tokenEntity.getUserId());
             String accessToken = JwtTokenUtils.generateAccessToken(tokenEntity.getUserId(), UserRole.ROLE_USER.toString(), key, accessTokenExpiredTimeMs);
             return accessToken;
         }
@@ -75,4 +76,14 @@ public class TokenService {
             throw new TtoAppException("Refresh token does not exist.");
         }
     }
+
+    public void checkValidAuthentication(Authentication authentication) {
+        try {
+            User user = (User) authentication.getPrincipal();
+        }
+        catch (RuntimeException e) {
+            throw new TtoAppException("checkValidAuthentication exception");
+        }
+    }
+
 }

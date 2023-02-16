@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .mvcMatchers("/favorites/*").hasRole("USER")
+                        .mvcMatchers("/favorites/*").hasRole("USER") // 이 patterns 들은 정상적으로 완료되지 않으면 CustomEntryPoint 으로 넘어간다.
                         .anyRequest().permitAll()
                 .and()
                         .apply(new MyCustomDsl())

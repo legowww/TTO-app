@@ -29,7 +29,7 @@ public class FavoriteService {
         if (favoriteEntityRepository.countAllByUserEntity_Id(userId) >= 5) {
             throw new TtoAppException("You cannot create more than 5 favorites.");
         }
-
+        log.info("id={} 의 즐겨찾기 등록", userId);
         UserEntity userEntity = userEntityRepository.getOne(userId);
         favoriteEntityRepository.save(FavoriteEntity.of(userEntity, request.getName(), LocationCoordinate.fromRequest(request)));
     }
@@ -40,6 +40,7 @@ public class FavoriteService {
     }
 
     public List<Favorite> favorites(Integer userId, Pageable pageable) {
+        log.info("id={} 의 즐겨찾기 조회", userId);
         return favoriteEntityRepository.findAllByUserEntity_Id(userId, pageable).map(Favorite::new).getContent();
     }
 }

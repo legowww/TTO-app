@@ -31,11 +31,8 @@ public class JwtExceptionHandlingFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
             }
             else {
-//                System.out.println("============토큰 유효=============");
                 final String token = header.split(" ")[1].trim();
-//                log.info("{}", token);
-                boolean expired = JwtTokenUtils.isExpired(token, key);
-//                System.out.println("=================================");
+                JwtTokenUtils.isExpired(token, key);
                 filterChain.doFilter(request, response);
             }
         } catch (ExpiredJwtException e) {

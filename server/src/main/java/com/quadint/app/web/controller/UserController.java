@@ -7,6 +7,7 @@ import com.quadint.app.domain.entity.FavoriteEntity;
 import com.quadint.app.web.controller.request.FavoriteLocationCoordinateRequest;
 import com.quadint.app.web.controller.request.LocationCoordinateRequest;
 import com.quadint.app.web.controller.request.UserJoinRequest;
+import com.quadint.app.web.controller.response.MyPageResponse;
 import com.quadint.app.web.controller.response.Response;
 import com.quadint.app.web.service.FavoriteService;
 import com.quadint.app.web.service.UserService;
@@ -33,6 +34,13 @@ public class UserController {
     public Response<Void> join(@Validated @RequestBody UserJoinRequest request) {
         userService.join(request.getName(), request.getUsername(), request.getPassword());
         return Response.success();
+    }
+
+    @GetMapping("/my-page")
+    public Response myPage(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        MyPageResponse myPage = userService.myPage(user.getId());
+        return Response.success(myPage);
     }
 
     @GetMapping("/favorites")
