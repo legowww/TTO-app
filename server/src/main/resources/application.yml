@@ -1,7 +1,7 @@
 spring.jpa:
   database: mysql
   hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
-  hibernate.ddl-auto: create
+  hibernate.ddl-auto: validate
   show-sql: true
   properties:
     hibernate:
@@ -16,9 +16,9 @@ spring.datasource:
 
 jwt:
   secret-key: tto-security-with-jwt-study-secret-key
-  access-token-expired-time-ms: 30000
-  refresh-token-expired-time-ms: 600000
-#  refresh-token-expired-time-ms: 1200000
+  access-token-expired-time-ms: 1800000
+  refresh-token-expired-time-ms: 604800000
+#  1800000 30분
 
 
 
