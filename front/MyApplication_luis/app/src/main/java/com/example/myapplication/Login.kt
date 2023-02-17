@@ -7,7 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.dto.request.LoginRequest
+import com.example.dto.request.TokenRefreshRequest
+import com.example.dto.response.LoginSuccessTokenResponse
 import com.example.dto.response.ServerResponse
+import com.example.dto.response.TokenRefreshResponse
 import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -19,13 +22,14 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         val idText = findViewById<EditText>(R.id.loginId)
         val passwordText = findViewById<EditText>(R.id.loginPassword)
         val loginBtn = findViewById<Button>(R.id.loginButton)
-
-        loginBtn.setOnClickListener {
-            RetrofitBuilder.api.login(LoginRequest(idText.text.toString().trim(), passwordText.text.toString().trim()))
-                .enqueue(object : Callback<ServerResponse<String>> {
+        //자동 로그인(액세스 토큰 유효할 경우)
+        if (App.prefs.access != null && !App.prefs.access.equals("")) {
+            val accessToken = "Bearer ${App.prefs.access}"
+            RetrofitBuilder.api.autoLogin(accessToken).enqueue(object : Callback<ServerResponse<String>> {
                 override fun onResponse(
                     call: Call<ServerResponse<String>>,
                     response: Response<ServerResponse<String>>
@@ -33,9 +37,32 @@ class Login : AppCompatActivity() {
                     val body = response.body() ?: return
                     val message = body.message
                     if (message.equals("success")) {
-                        /*로그인 성공 => 토큰 최신화*/
-                        val receivedToken = body.result
-                        App.prefs.token = "Bearer $receivedToken"
+                        Toast.makeText(this@Login, "로그인", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@Login, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else {
+                        println("$message + ${App.prefs.access}")
+                    }
+                }
+                override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
+                }
+            })
+        }
+
+        loginBtn.setOnClickListener {
+            RetrofitBuilder.api.login(LoginRequest(idText.text.toString().trim(), passwordText.text.toString().trim()))
+                .enqueue(object : Callback<ServerResponse<LoginSuccessTokenResponse>> {
+                override fun onResponse(
+                    call: Call<ServerResponse<LoginSuccessTokenResponse>>,
+                    response: Response<ServerResponse<LoginSuccessTokenResponse>>
+                ) {
+                    val body = response.body() ?: return
+                    val message = body.message
+                    if (message.equals("success")) {
+                        val tokens = body.result
+                        App.prefs.access = tokens.access
+                        App.prefs.refresh = tokens.refresh
 
                         Toast.makeText(this@Login, "로그인", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@Login, MainActivity::class.java)
@@ -52,7 +79,7 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this@Login, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
-                override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
+                override fun onFailure(call: Call<ServerResponse<LoginSuccessTokenResponse>>, t: Throwable) {
                 }
             })
         }

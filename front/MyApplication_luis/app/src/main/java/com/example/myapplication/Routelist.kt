@@ -11,7 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.dto.LocationCoordinate
 import com.example.dto.TimeRoute
 import com.example.dto.request.FavoriteLocationCoordinateRequest
+import com.example.dto.request.TokenRefreshRequest
 import com.example.dto.response.ServerResponse
+import com.example.dto.response.TokenRefreshResponse
 import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
 import com.google.android.material.tabs.TabItem
@@ -26,7 +28,6 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.Exception
 import java.lang.StringBuilder
-import java.lang.Thread.sleep
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -37,22 +38,41 @@ class Routelist : AppCompatActivity() {
     var pointx: ArrayList<String> = arrayListOf("", "")
     var pointy: ArrayList<String> = arrayListOf("", "")
     var locationStr = ArrayList<String>()
+    lateinit var lc: LocationCoordinate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_route_list)
 
         val intent = getIntent()
-        val start = intent.getStringExtra("start").toString()
-        val end = intent.getStringExtra("end").toString()
+        val identifier = intent.getStringExtra("identify").toString()
 
-        locationStr = arrayListOf(start, end)
+        if (identifier == "1") {
+            val start = intent.getStringExtra("start").toString()
+            val end = intent.getStringExtra("end").toString()
 
-        val thread = NetworkThread()
-        thread.start()
-        thread.join()
+            locationStr = arrayListOf(start, end)
 
-        //출발지, 목적지 위도 경도값
+            val thread = NetworkThread()
+            thread.start()
+            thread.join()
+
+            try {
+                Thread.sleep(1000)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            lc = LocationCoordinate(pointx[0], pointy[0], pointx[1], pointy[1])
+        } else {
+            val sx = intent.getStringExtra("sx").toString()
+            val sy = intent.getStringExtra("sy").toString()
+            val ex = intent.getStringExtra("ex").toString()
+            val ey = intent.getStringExtra("ey").toString()
+
+            lc = LocationCoordinate(sx, sy, ex, ey)
+        }
+        val addButton = findViewById<Button>(R.id.tempFavoriteAddButton)
 
         //경로를 받을 리스트 생성
         var responseTimeRoutes =  ArrayList<TimeRoute>()
@@ -79,39 +99,6 @@ class Routelist : AppCompatActivity() {
             layouts.add(tmp3)
         }
 
-        //val back = Intent(this,MainActivity::class.java)
-        val star = Intent(this,Favorites::class.java)
-        val home = Intent(this, MainActivity::class.java)
-        val reload = Intent(this, Routelist::class.java)
-        val account = Intent(this, Mypage::class.java)
-
-        val tabs : (TabLayout) = findViewById(R.id.tabs)
-        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab!!.position) {
-                    0 -> startActivity(home)
-                    1 -> startActivity(star)
-                    2 -> startActivity(home)
-                    3 -> startActivity(reload)
-                    4 -> startActivity(account)
-                }
-            }
-        })
-
-        try {
-            sleep(1000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-
-        val lc = LocationCoordinate(pointx[0], pointy[0], pointx[1], pointy[1])
-
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
             override fun onResponse(
@@ -136,6 +123,7 @@ class Routelist : AppCompatActivity() {
                     }
                 }
                 else {
+                    //todo : 현재 탈 수 있는 교통 수단 X
                     println(body.message)
                 }
             }
@@ -143,26 +131,19 @@ class Routelist : AppCompatActivity() {
             }
         })
 
-
-        /*
-            2. POST: 즐겨찾기 등록(https://github.com/legowww/time-to-out/issues/44#issuecomment-1409071435)
-         */
-        //즐겨찾기 등록 버튼(예시 용도)
-        val addButton = findViewById<Button>(R.id.tempFavoriteAddButton)
-
-        //추가 버튼 클릭
+        //즐겨찾기 클릭
         addButton.setOnClickListener {
-            //local storage 에서 token 가져옮
-            val token = App.prefs.token
-
             //todo: 팝업 창 등을 사용 하여 이름 입력 받기
             val name : String = "입력된 이름"
 
             //내가 등록할 즐겨찾기의 정보를 담은 객체(이름, 좌표...)
             val enrollRequest = FavoriteLocationCoordinateRequest.fromLocationCoordinate(name, lc);
 
+            //local storage 에서 token 가져옮
+            val accessToken = "Bearer ${App.prefs.access}"
+
             //POST 요청 전송
-            RetrofitBuilder.api.addFavorite(token, enrollRequest).enqueue(object : Callback<ServerResponse<String>> {
+            RetrofitBuilder.api.addFavorite(accessToken, enrollRequest).enqueue(object : Callback<ServerResponse<String>> {
                 override fun onResponse(
                     call: Call<ServerResponse<String>>,
                     response: Response<ServerResponse<String>>
@@ -172,8 +153,35 @@ class Routelist : AppCompatActivity() {
                     if (message.equals("success")) {
                         Toast.makeText(this@Routelist, "즐겨찾기 등록", Toast.LENGTH_LONG).show()
                     }
-                    else {
+                    else if (message.equals("You cannot create more than 5 favorites.")){
                         Toast.makeText(this@Routelist, "즐겨찾기는 5개 이상 등록할 수 없습니다.", Toast.LENGTH_LONG).show()
+                    }
+                    else{
+                        RetrofitBuilder.api.refresh(TokenRefreshRequest(App.prefs.refresh)).enqueue(object : Callback<ServerResponse<TokenRefreshResponse>> {
+                            override fun onResponse(
+                                call: Call<ServerResponse<TokenRefreshResponse>>,
+                                response: Response<ServerResponse<TokenRefreshResponse>>
+                            ) {
+                                val body = response.body() ?: return
+                                val message = body.message
+                                if (message.equals("success")) {
+                                    //[성공] -> 현재 화면 다시 요청
+                                    val newAccessToken = body.result.access
+                                    App.prefs.access = newAccessToken
+                                }
+                                else {
+                                    //[실급]실패 -> 로그인 화면
+                                    Toast.makeText(this@Routelist, "세션 종료. 로그인", Toast.LENGTH_LONG).show()
+                                    val intent = Intent(this@Routelist, Login::class.java)
+                                    startActivity(intent)
+                                }
+                            }
+                            override fun onFailure(
+                                call: Call<ServerResponse<TokenRefreshResponse>>,
+                                t: Throwable
+                            ) {
+                            }
+                        })
                     }
                 }
                 override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
@@ -181,7 +189,30 @@ class Routelist : AppCompatActivity() {
             })
         }
 
+        //val back = Intent(this,MainActivity::class.java)
+        val star = Intent(this,Favorites::class.java)
+        val home = Intent(this, MainActivity::class.java)
+        val reload = Intent(this, Routelist::class.java)
+        val account = Intent(this, Mypage::class.java)
 
+        val tabs : (TabLayout) = findViewById(R.id.tabs)
+        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab!!.position) {
+                    0 -> startActivity(home)
+                    1 -> startActivity(star)
+                    2 -> startActivity(home)
+                    3 -> startActivity(reload)
+                    4 -> startActivity(account)
+                }
+            }
+        })
     }
     inner class NetworkThread: Thread(){
         override fun run() {

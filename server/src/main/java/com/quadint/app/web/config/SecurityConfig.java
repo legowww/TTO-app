@@ -1,11 +1,14 @@
 package com.quadint.app.web.config;
 
 
-import com.quadint.app.domain.UserRole;
+
+
 import com.quadint.app.web.config.jwt.JwtAuthenticationFilter;
 import com.quadint.app.web.config.jwt.JwtAuthorizationFilter;
+import com.quadint.app.web.config.jwt.JwtExceptionHandlingFilter;
 import com.quadint.app.web.exception.CustomEntryPoint;
 import com.quadint.app.web.service.CustomUserDetailService;
+import com.quadint.app.web.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -26,13 +29,16 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CustomUserDetailService customUserDetailService;
+    private final TokenService tokenService;
 
     @Value("${jwt.secret-key}")
     private String key;
 
-    @Value("${jwt.token-expired-time-ms}")
-    private Long expiredTimeMs;
+    @Value("${jwt.access-token-expired-time-ms}")
+    private Long accessTokenExpiredTimeMs;
 
+    @Value("${jwt.refresh-token-expired-time-ms}")
+    private Long refreshTokenExpiredTimeMs;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -40,14 +46,12 @@ public class SecurityConfig {
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()
+                .logout().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .mvcMatchers("/test").authenticated()
-                        .mvcMatchers(HttpMethod.GET, "/favorites").hasRole("USER")
-                        .mvcMatchers(HttpMethod.POST, "/favorites").hasRole("USER")
-                        .mvcMatchers(HttpMethod.DELETE, "/favorites/*").hasRole("USER")
+                        .mvcMatchers("/favorites/*").hasRole("USER") // 이 patterns 들은 정상적으로 완료되지 않으면 CustomEntryPoint 으로 넘어간다.
                         .anyRequest().permitAll()
                 .and()
                         .apply(new MyCustomDsl())
@@ -63,8 +67,9 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             http.
-                    addFilter(new JwtAuthenticationFilter(authenticationManager, key, expiredTimeMs))
-                    .addFilterBefore(new JwtAuthorizationFilter(key, customUserDetailService), BasicAuthenticationFilter.class);
+                    addFilter(new JwtAuthenticationFilter(tokenService, authenticationManager, key, accessTokenExpiredTimeMs, refreshTokenExpiredTimeMs))
+                    .addFilterBefore(new JwtAuthorizationFilter(key), BasicAuthenticationFilter.class)
+                    .addFilterBefore(new JwtExceptionHandlingFilter(key), JwtAuthorizationFilter.class);
         }
     }
 

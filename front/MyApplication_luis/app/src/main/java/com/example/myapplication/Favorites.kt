@@ -7,13 +7,17 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.example.dto.Favorite
 import com.example.dto.request.FavoriteLocationCoordinateRequest
+import com.example.dto.request.TokenRefreshRequest
 import com.example.dto.response.ServerResponse
+import com.example.dto.response.TokenRefreshResponse
 import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_favorites.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_route_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,14 +46,12 @@ class Favorites : AppCompatActivity() {
             deletes.add(tmp3)
         }
 
-        //local storage 에서 token 가져옮
-        val token = App.prefs.token
-
 
         /*
             1. GET: 즐겨찾기 조회(https://github.com/legowww/time-to-out/issues/44#issuecomment-1409048102)
          */
-        RetrofitBuilder.api.getFavorites(token).enqueue(object : Callback<ServerResponse<List<Favorite>>> {
+        val accessToken = "Bearer ${App.prefs.access}"
+        RetrofitBuilder.api.getFavorites(accessToken).enqueue(object : Callback<ServerResponse<List<Favorite>>> {
             override fun onResponse(
                 call: Call<ServerResponse<List<Favorite>>>,
                 response: Response<ServerResponse<List<Favorite>>>
@@ -71,9 +73,48 @@ class Favorites : AppCompatActivity() {
                         for (favorite in favorites) {
                             texts[count].text = favorite.name
                             layouts[count].visibility = View.VISIBLE
+                            texts[count].setOnClickListener {
+                                val subIntent = Intent(this@Favorites, Routelist::class.java)
+                                subIntent.putExtra("sx", favorite.lc.sx)
+                                subIntent.putExtra("sy", favorite.lc.sy)
+                                subIntent.putExtra("ex", favorite.lc.ex)
+                                subIntent.putExtra("ey", favorite.lc.ey)
+                                subIntent.putExtra("identify", 0)
+                                startActivity(subIntent)
+                            }
+                            count++
                             println("[info] ====== id=${favorite.id} name=${favorite.name}, lc=${favorite.lc} ======")
                         }
                     }
+                }
+                else {
+                    RetrofitBuilder.api.refresh(TokenRefreshRequest(App.prefs.refresh)).enqueue(object : Callback<ServerResponse<TokenRefreshResponse>> {
+                        override fun onResponse(
+                            call: Call<ServerResponse<TokenRefreshResponse>>,
+                            response: Response<ServerResponse<TokenRefreshResponse>>
+                        ) {
+                            val body = response.body() ?: return
+                            val message = body.message
+                            if (message.equals("success")) {
+                                //[성공] -> 현재 화면 다시 요청
+                                val newAccessToken = body.result.access
+                                App.prefs.access = newAccessToken
+                                val intent = Intent(this@Favorites, Favorites::class.java)
+                                startActivity(intent)
+                            }
+                            else {
+                                //[실급]실패 -> 로그인 화면
+                                Toast.makeText(this@Favorites, "세션 종료. 로그인", Toast.LENGTH_LONG).show()
+                                val intent = Intent(this@Favorites, Login::class.java)
+                                startActivity(intent)
+                            }
+                        }
+                        override fun onFailure(
+                            call: Call<ServerResponse<TokenRefreshResponse>>,
+                            t: Throwable
+                        ) {
+                        }
+                    })
                 }
             }
             override fun onFailure(call: Call<ServerResponse<List<Favorite>>>, t: Throwable) {

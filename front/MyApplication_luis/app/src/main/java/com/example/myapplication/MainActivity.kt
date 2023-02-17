@@ -141,6 +141,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val subIntent = Intent(this@MainActivity, Routelist::class.java)
                 subIntent.putExtra("start", start)
                 subIntent.putExtra("end", end)
+                subIntent.putExtra("identify", 1)
                 startActivity(subIntent)
             }
             true
