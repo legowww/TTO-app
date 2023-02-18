@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.tabs.TabLayout
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
@@ -54,8 +55,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val eText2 = findViewById<EditText>(R.id.end)
         val list1 = findViewById<ScrollView>(R.id.listview1)
         val list2 = findViewById<ScrollView>(R.id.listview2)
-        val search1 = findViewById<Button>(R.id.searchbtn1)
-        val search2 = findViewById<Button>(R.id.searchbtn2)
+        val search1 = findViewById<AppCompatButton>(R.id.searchbtn1)
+        val search2 = findViewById<AppCompatButton>(R.id.searchbtn2)
         val text1 = ArrayList<TextView>()
         val text2 = ArrayList<TextView>()
 
@@ -95,14 +96,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             text1[i].setOnClickListener{
                 start = text1[i].text
                 list1.visibility = View.GONE
-                println(start)
+                eText1.setBackgroundResource(R.drawable.selected_input)
             }
         }
         for (i: Int in 0 .. 4) {
             text2[i].setOnClickListener{
                 end = text2[i].text
                 list2.visibility = View.GONE
-                println(end)
+                eText2.setBackgroundResource(R.drawable.selected_input)
             }
         }
 
@@ -139,9 +140,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         eText2.setOnKeyListener { view, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
                 val subIntent = Intent(this@MainActivity, Routelist::class.java)
+                subIntent.putExtra("identify", "1")
                 subIntent.putExtra("start", start)
                 subIntent.putExtra("end", end)
-                subIntent.putExtra("identify", 1)
                 startActivity(subIntent)
             }
             true

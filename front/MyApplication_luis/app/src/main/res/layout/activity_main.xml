@@ -67,6 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"
+        android:translationZ="10dp"
         android:visibility="gone">
 
         <LinearLayout
@@ -181,29 +182,30 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/searchbtn1"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:text="검색"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/search_btn"
         app:layout_constraintBottom_toBottomOf="@+id/start"
         app:layout_constraintEnd_toEndOf="@+id/start"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintStart_toStartOf="@+id/start"
         app:layout_constraintTop_toTopOf="@+id/start"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/searchbtn2"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:text="검색"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/search_btn"
+        android:translationZ="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/end"
         app:layout_constraintEnd_toEndOf="@+id/end"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintStart_toStartOf="@+id/end"
         app:layout_constraintTop_toTopOf="@+id/end"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"

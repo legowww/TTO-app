@@ -45,7 +45,7 @@ class Routelist : AppCompatActivity() {
         setContentView(R.layout.activity_route_list)
 
         val intent = getIntent()
-        val identifier = intent.getStringExtra("identify").toString()
+        val identifier = intent.getStringExtra("identify")
 
         if (identifier == "1") {
             val start = intent.getStringExtra("start").toString()
@@ -98,6 +98,8 @@ class Routelist : AppCompatActivity() {
             totaltime.add(tmp2)
             layouts.add(tmp3)
         }
+
+        println(lc)
 
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
