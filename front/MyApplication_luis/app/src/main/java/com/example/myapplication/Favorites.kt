@@ -27,6 +27,7 @@ class Favorites : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
+        val favoriteIdValues = ArrayList<String>()
         val texts = ArrayList<TextView>()
         val layouts = ArrayList<LinearLayout>()
         val deletes = ArrayList<ImageButton>()
@@ -71,6 +72,7 @@ class Favorites : AppCompatActivity() {
                         println("내 즐겨찾기 개수=$myEnrollFavoriteCount")
                         //출력 확인
                         for (favorite in favorites) {
+                            favoriteIdValues.add(count, favorite.id)
                             texts[count].text = favorite.name
                             layouts[count].visibility = View.VISIBLE
                             texts[count].setOnClickListener {
@@ -123,6 +125,22 @@ class Favorites : AppCompatActivity() {
 
         for (i: Int in 0 .. 4) {
             deletes[i].setOnClickListener {
+                val accessToken = "Bearer ${App.prefs.access}"
+
+                RetrofitBuilder.api.deleteFavorite(accessToken, favoriteIdValues[i]).enqueue(object : Callback<ServerResponse<String>> {
+                    override fun onResponse(
+                        call: Call<ServerResponse<String>>,
+                        response: Response<ServerResponse<String>>
+                    ) {
+                        val body = response.body() ?: return
+                        val message = body.message
+                        if (message.equals("success")) {
+                            Toast.makeText(this@Favorites, "즐겨찾기 삭제", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
+                    }
+                })
                 texts[i].text = ""
                 layouts[i].visibility = View.GONE
             }

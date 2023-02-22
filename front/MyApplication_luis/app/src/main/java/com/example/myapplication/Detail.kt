@@ -8,11 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class Detail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        val intent = getIntent()
+        val time = intent.getStringExtra("time")
+        val totaltime = intent.getStringExtra("totaltime")
+        val transportationList = intent.getStringExtra("transportationList")
+        val detailData : (TextView) = findViewById(R.id.detaildata)
+
+        detailData.text = time
 
         val back = Intent(this,Routelist::class.java)
         val star = Intent(this,Favorites::class.java)
@@ -40,8 +50,8 @@ class Detail : AppCompatActivity() {
         })
 
         //intent
-        val testStr = intent.getStringExtra("info")
-        val msg = findViewById<TextView>(R.id.detail2)
-        msg.text = testStr
+        //val testStr = intent.getStringExtra("info")
+        //val msg = findViewById<TextView>(R.id.detail2)
+        //msg.text = testStr
     }
 }

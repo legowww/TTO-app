@@ -14,9 +14,12 @@ import com.example.dto.response.TokenRefreshResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+
 import java.util.List;
 
 public interface JsonApi {
@@ -25,9 +28,11 @@ public interface JsonApi {
     Call<ServerResponse<List<TimeRoute>>> getTimeRoute(@Body LocationCoordinate lc);
     @GET("/favorites")
     Call<ServerResponse<List<Favorite>>> getFavorites(@Header("Authorization") String accessToken);
-
     @POST("/favorites")
     Call<ServerResponse<String>> addFavorite(@Header("Authorization") String accessToken, @Body FavoriteLocationCoordinateRequest request);
+
+    @DELETE("/favorites/{favoriteId}")
+    Call<ServerResponse<String>> deleteFavorite(@Header("Authorization") String accessToken, @Path("favoriteId") String favoriteId);
 
     @POST("/refresh")
     Call<ServerResponse<TokenRefreshResponse>> refresh(@Body TokenRefreshRequest request);

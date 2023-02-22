@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.bumptech.glide.Glide
 import com.example.dto.LocationCoordinate
 import com.example.dto.TimeRoute
+import com.example.dto.Transportation
 import com.example.dto.request.FavoriteLocationCoordinateRequest
 import com.example.dto.request.TokenRefreshRequest
 import com.example.dto.response.ServerResponse
@@ -26,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.io.Serializable
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.net.HttpURLConnection
@@ -75,14 +77,14 @@ class Routelist : AppCompatActivity() {
         val addButton = findViewById<Button>(R.id.tempFavoriteAddButton)
 
         //경로를 받을 리스트 생성
-        var responseTimeRoutes =  ArrayList<TimeRoute>()
+        //var responseTimeRoutes =  ArrayList<TimeRoute>()
         val time = ArrayList<TextView>()
         val totaltime = ArrayList<TextView>()
         val layouts = ArrayList<LinearLayout>()
         val imageView : (ImageView) = findViewById(R.id.imageview)
         val loadingLayout : (LinearLayout) = findViewById(R.id.loading)
 
-        Glide.with(this).load(R.raw.walk).into(imageView)
+        Glide.with(this).load(R.raw.bus).into(imageView)
 
         for (i: Int in 1..5) {
             val timeId : (String) = "time" + i
@@ -99,8 +101,6 @@ class Routelist : AppCompatActivity() {
             layouts.add(tmp3)
         }
 
-        println(lc)
-
         val call = RetrofitBuilder.api.getTimeRoute(lc)
         call.enqueue(object : Callback<ServerResponse<List<TimeRoute>>> {
             override fun onResponse(
@@ -116,7 +116,14 @@ class Routelist : AppCompatActivity() {
                         //println("${timeRoute.time}")
                         time[count].text = timeRoute.time
                         totaltime[count].text = timeRoute.route.totalTime.toString() + "분"
-                        responseTimeRoutes.add(timeRoute)
+                        layouts[count].setOnClickListener {
+                            val intent = Intent(this@Routelist, Detail::class.java)
+                            intent.putExtra("time", timeRoute.time)
+                            intent.putExtra("totaltime", timeRoute.route.totalTime)
+                            intent.putExtra("transportationList", timeRoute.route.transportationList.toString())
+                            startActivity(intent)
+                        }
+                        //responseTimeRoutes.add(timeRoute)
                         count++
                     }
                     loadingLayout.visibility = View.GONE
