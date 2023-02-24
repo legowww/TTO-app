@@ -52,7 +52,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:tabIndicatorColor="@color/orange">
+        app:tabIconTint="@color/black"
+        app:tabIndicatorColor="@color/orange"
+        app:tabRippleColor="@color/orange"
+        app:tabTextColor="@color/orange">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/back"
@@ -64,25 +67,25 @@
             android:id="@+id/star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/star"/>
+            android:icon="@drawable/star" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/home"/>
+            android:icon="@drawable/home" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/refresh"/>
+            android:icon="@drawable/refresh" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/account"/>
+            android:icon="@drawable/account" />
 
     </com.google.android.material.tabs.TabLayout>
 

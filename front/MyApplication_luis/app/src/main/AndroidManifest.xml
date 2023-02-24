@@ -20,6 +20,19 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory"
         tools:targetApi="32">
+        <service
+            android:name=".AlarmSoundService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.test.alarmtestous.ALARM_START" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".Favorites"
             android:exported="false">

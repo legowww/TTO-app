@@ -1,10 +1,18 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
+import android.graphics.drawable.shapes.RectShape
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.example.dto.request.JoinRequest
 import com.example.dto.response.ServerResponse
@@ -16,6 +24,24 @@ class Signup : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        val imageV : (ImageView) = findViewById(R.id.imageV)
+        val bitmap: Bitmap = Bitmap.createBitmap(1100, 1000, Bitmap.Config.ARGB_8888)
+        val canvas: Canvas = Canvas(bitmap)
+
+        var shapeDrawable: ShapeDrawable
+
+        shapeDrawable = ShapeDrawable(RectShape())
+        shapeDrawable.setBounds( 0, 365, 1100, 1000)
+        shapeDrawable.getPaint().setColor(Color.parseColor("#71a300"))
+        shapeDrawable.draw(canvas)
+
+        shapeDrawable = ShapeDrawable(OvalShape())
+        shapeDrawable.setBounds( 0, 220, 1100, 500)
+        shapeDrawable.getPaint().setColor(Color.parseColor("#71a300"))
+        shapeDrawable.draw(canvas)
+
+        imageV.background = BitmapDrawable(getResources(), bitmap)
 
         val joinUsername = findViewById<EditText>(R.id.joinUsername)
         val joinId = findViewById<EditText>(R.id.joinId)

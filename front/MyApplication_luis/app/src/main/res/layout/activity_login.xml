@@ -81,7 +81,7 @@
         android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
+        android:backgroundTint="@color/background"
         android:fontFamily="@font/jalnan"
         android:text="회원가입 >"
         android:textColor="@color/black"
@@ -92,6 +92,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.811" />
+
+    <ImageView
+        android:id="@+id/imageV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="-1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
