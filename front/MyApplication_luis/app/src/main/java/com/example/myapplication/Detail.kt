@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dto.Transportation
 import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -24,7 +25,15 @@ class Detail : AppCompatActivity() {
         val intent = getIntent()
         val time = intent.getStringExtra("time")
         val totaltime = intent.getStringExtra("totaltime")
-        val transportationList = intent.getStringExtra("transportationList")
+        val transportationList = intent.getSerializableExtra("transportationList") as ArrayList<Transportation>
+        for (transportation in transportationList) {
+            /*
+            출력 예시:
+            I/System.out: Transportation{time=5, transportationType='WALK', busNum='null', startName='null', endName='null'}
+            I/System.out: Transportation{time=11, transportationType='BUS', busNum='99', startName='동춘역', endName='테크노파크역'}
+             */
+            println("$transportation")
+        }
         val detailData : (TextView) = findViewById(R.id.detaildata)
         val hour : (String)
         val min : (String)

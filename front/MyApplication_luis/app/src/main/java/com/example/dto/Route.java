@@ -18,6 +18,10 @@ public class Route {
         return transportationList;
     }
 
+
+    public ArrayList<Transportation> getTransportationArrayList() {
+        return new ArrayList<Transportation>(getTransportationList());
+    }
     public int getTotalTime() {
         return totalTime;
     }

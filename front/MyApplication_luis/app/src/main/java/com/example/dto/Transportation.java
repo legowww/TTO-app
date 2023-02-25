@@ -1,6 +1,8 @@
 package com.example.dto;
 
-public class Transportation {
+import java.io.Serializable;
+
+public class Transportation implements Serializable {
     //COMMON FIELD
     private int time;
     private String transportationType;
@@ -29,4 +31,16 @@ public class Transportation {
     public int getTime() {
         return time;
     }
+
+    @Override
+    public String toString() {
+        return "Transportation{" +
+                "time=" + time +
+                ", transportationType='" + transportationType + '\'' +
+                ", busNum='" + busNum + '\'' +
+                ", startName='" + startName + '\'' +
+                ", endName='" + endName + '\'' +
+                '}';
+    }
 }
+

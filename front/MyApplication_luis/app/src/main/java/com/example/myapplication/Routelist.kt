@@ -120,7 +120,7 @@ class Routelist : AppCompatActivity() {
                             val intent = Intent(this@Routelist, Detail::class.java)
                             intent.putExtra("time", timeRoute.time)
                             intent.putExtra("totaltime", timeRoute.route.totalTime)
-                            intent.putExtra("transportationList", timeRoute.route.transportationList.toString())
+                            intent.putExtra("transportationList", timeRoute.route.transportationArrayList)
                             startActivity(intent)
                         }
                         //responseTimeRoutes.add(timeRoute)

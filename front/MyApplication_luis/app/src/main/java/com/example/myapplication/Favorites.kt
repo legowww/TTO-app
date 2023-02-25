@@ -106,7 +106,7 @@ class Favorites : AppCompatActivity() {
                             }
                             else {
                                 //[실급]실패 -> 로그인 화면
-                                Toast.makeText(this@Favorites, "세션 종료. 로그인", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this@Favorites, "세션 종료. 로그인", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this@Favorites, Login::class.java)
                                 startActivity(intent)
                             }
@@ -135,7 +135,7 @@ class Favorites : AppCompatActivity() {
                         val body = response.body() ?: return
                         val message = body.message
                         if (message.equals("success")) {
-                            Toast.makeText(this@Favorites, "즐겨찾기 삭제", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@Favorites, "즐겨찾기 삭제", Toast.LENGTH_SHORT).show()
                         }
                     }
                     override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
