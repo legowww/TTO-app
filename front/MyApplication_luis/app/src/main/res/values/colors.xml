@@ -16,4 +16,7 @@
     <color name="lightgreen">#8FFF40</color>
     <color name="yellow">#FFE640</color>
     <color name="green">#71a300</color>
+    <color name="walk">#c3c3c3</color>
+    <color name="bus">#c4ff0e</color>
+    <color name="subway">#8cfffb</color>
 </resources>

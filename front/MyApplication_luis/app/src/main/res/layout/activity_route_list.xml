@@ -177,10 +177,62 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageV1"
                     android:layout_width="370dp"
-                    android:layout_height="75dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -223,11 +275,64 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageV2"
                     android:layout_width="370dp"
-                    android:layout_height="75dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"/>
+
 
             </LinearLayout>
 
@@ -269,11 +374,64 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageV3"
                     android:layout_width="370dp"
-                    android:layout_height="75dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"/>
+
 
             </LinearLayout>
 
@@ -315,11 +473,64 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageV4"
                     android:layout_width="370dp"
-                    android:layout_height="75dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"/>
+
 
             </LinearLayout>
 
@@ -361,10 +572,62 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageV5"
                     android:layout_width="370dp"
-                    android:layout_height="75dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
