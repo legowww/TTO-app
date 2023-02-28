@@ -132,11 +132,12 @@ class Routelist : AppCompatActivity() {
                         val bitmap: Bitmap = Bitmap.createBitmap(700, 100, Bitmap.Config.ARGB_8888)
                         val canvas: Canvas = Canvas(bitmap)
                         var shapeDrawable: ShapeDrawable
+                        var left = 50
                         time[count].text = timeRoute.time
                         totaltime[count].text = timeRoute.route.totalTime.toString() + "분"
                         for (i: Int in 0 until timeRoute.route.transportationArrayList.size) {
                             shapeDrawable = ShapeDrawable(RectShape())
-                            shapeDrawable.setBounds( 50, 50, 50 + (timeRoute.route.transportationArrayList[i].time * 10), 75)
+                            shapeDrawable.setBounds( left, 50, left + (timeRoute.route.transportationArrayList[i].time * 8), 75)
                             if (timeRoute.route.transportationArrayList[i].transportationType == "WALK") {
                                 shapeDrawable.getPaint().setColor(Color.parseColor("#c3c3c3"))
                             } else if (timeRoute.route.transportationArrayList[i].transportationType == "BUS") {
@@ -145,6 +146,7 @@ class Routelist : AppCompatActivity() {
                                 shapeDrawable.getPaint().setColor(Color.parseColor("#8cfffb"))
                             }
                             shapeDrawable.draw(canvas)
+                            left = left + timeRoute.route.transportationArrayList[i].time * 8
                         }
                         imageVs[count].background = BitmapDrawable(getResources(), bitmap)
                         layouts[count].setOnClickListener {
