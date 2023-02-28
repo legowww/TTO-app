@@ -177,14 +177,11 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/way1"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageV1"
+                    android:layout_width="370dp"
                     android:layout_height="75dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -226,14 +223,11 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/way2"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageV2"
+                    android:layout_width="370dp"
                     android:layout_height="75dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -275,14 +269,11 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/way3"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageV3"
+                    android:layout_width="370dp"
                     android:layout_height="75dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -324,14 +315,11 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/way4"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageV4"
+                    android:layout_width="370dp"
                     android:layout_height="75dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -373,14 +361,11 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/way5"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageV5"
+                    android:layout_width="370dp"
                     android:layout_height="75dp"
-                    android:gravity="center"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 

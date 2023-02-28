@@ -1,10 +1,18 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import com.bumptech.glide.Glide
@@ -17,6 +25,7 @@ import com.example.dto.response.ServerResponse
 import com.example.dto.response.TokenRefreshResponse
 import com.example.util.prefs.App
 import com.example.util.retrofit.RetrofitBuilder
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_first_page.*
@@ -81,8 +90,10 @@ class Routelist : AppCompatActivity() {
         val time = ArrayList<TextView>()
         val totaltime = ArrayList<TextView>()
         val layouts = ArrayList<LinearLayout>()
+        val imageVs = ArrayList<ImageView>()
         val imageView : (ImageView) = findViewById(R.id.imageview)
         val loadingLayout : (LinearLayout) = findViewById(R.id.loading)
+
 
         Glide.with(this).load(R.raw.bus).into(imageView)
 
@@ -90,15 +101,19 @@ class Routelist : AppCompatActivity() {
             val timeId : (String) = "time" + i
             val totalId : (String) = "totaltime" + i
             val layoutId : (String) = "layout" + i
+            val imageId : (String) = "imageV" + i
             val resId1 = resources.getIdentifier(timeId, "id", packageName)
             val resId2 = resources.getIdentifier(totalId, "id", packageName)
             val resId3 = resources.getIdentifier(layoutId, "id", packageName)
+            val resId4 = resources.getIdentifier(imageId, "id", packageName)
             val tmp1 : (TextView) = findViewById(resId1)
             val tmp2 : (TextView) = findViewById(resId2)
             val tmp3 : (LinearLayout) = findViewById(resId3)
+            val tmp4 : (ImageView) = findViewById(resId4)
             time.add(tmp1)
             totaltime.add(tmp2)
             layouts.add(tmp3)
+            imageVs.add(tmp4)
         }
 
         val call = RetrofitBuilder.api.getTimeRoute(lc)
@@ -114,8 +129,24 @@ class Routelist : AppCompatActivity() {
                     for (timeRoute in timeRoutes) {
                         //경로 추가(최대 5개 까지 담길 수 있음)
                         //println("${timeRoute.time}")
+                        val bitmap: Bitmap = Bitmap.createBitmap(700, 100, Bitmap.Config.ARGB_8888)
+                        val canvas: Canvas = Canvas(bitmap)
+                        var shapeDrawable: ShapeDrawable
                         time[count].text = timeRoute.time
                         totaltime[count].text = timeRoute.route.totalTime.toString() + "분"
+                        for (i: Int in 0 until timeRoute.route.transportationArrayList.size) {
+                            shapeDrawable = ShapeDrawable(RectShape())
+                            shapeDrawable.setBounds( 50, 50, 50 + (timeRoute.route.transportationArrayList[i].time * 10), 75)
+                            if (timeRoute.route.transportationArrayList[i].transportationType == "WALK") {
+                                shapeDrawable.getPaint().setColor(Color.parseColor("#c3c3c3"))
+                            } else if (timeRoute.route.transportationArrayList[i].transportationType == "BUS") {
+                                shapeDrawable.getPaint().setColor(Color.parseColor("#c4ff0e"))
+                            } else {
+                                shapeDrawable.getPaint().setColor(Color.parseColor("#8cfffb"))
+                            }
+                            shapeDrawable.draw(canvas)
+                        }
+                        imageVs[count].background = BitmapDrawable(getResources(), bitmap)
                         layouts[count].setOnClickListener {
                             val intent = Intent(this@Routelist, Detail::class.java)
                             intent.putExtra("time", timeRoute.time)
@@ -143,59 +174,72 @@ class Routelist : AppCompatActivity() {
         //즐겨찾기 클릭
         addButton.setOnClickListener {
             //todo: 팝업 창 등을 사용 하여 이름 입력 받기
-            val name : String = "입력된 이름"
+            var name : String = ""
 
-            //내가 등록할 즐겨찾기의 정보를 담은 객체(이름, 좌표...)
-            val enrollRequest = FavoriteLocationCoordinateRequest.fromLocationCoordinate(name, lc);
+            val dialogView = layoutInflater.inflate(R.layout.dialog_sample, null)
+            val alertDialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create()
 
-            //local storage 에서 token 가져옮
-            val accessToken = "Bearer ${App.prefs.access}"
+            val userName = dialogView.findViewById<EditText>(R.id.name).text
+            val button = dialogView.findViewById<MaterialButton>(R.id.button)
 
-            //POST 요청 전송
-            RetrofitBuilder.api.addFavorite(accessToken, enrollRequest).enqueue(object : Callback<ServerResponse<String>> {
-                override fun onResponse(
-                    call: Call<ServerResponse<String>>,
-                    response: Response<ServerResponse<String>>
-                ) {
-                    val body = response.body() ?: return
-                    val message = body.message
-                    if (message.equals("success")) {
-                        Toast.makeText(this@Routelist, "즐겨찾기 등록", Toast.LENGTH_LONG).show()
-                    }
-                    else if (message.equals("You cannot create more than 5 favorites.")){
-                        Toast.makeText(this@Routelist, "즐겨찾기는 5개 이상 등록할 수 없습니다.", Toast.LENGTH_LONG).show()
-                    }
-                    else{
-                        RetrofitBuilder.api.refresh(TokenRefreshRequest(App.prefs.refresh)).enqueue(object : Callback<ServerResponse<TokenRefreshResponse>> {
-                            override fun onResponse(
-                                call: Call<ServerResponse<TokenRefreshResponse>>,
-                                response: Response<ServerResponse<TokenRefreshResponse>>
-                            ) {
-                                val body = response.body() ?: return
-                                val message = body.message
-                                if (message.equals("success")) {
-                                    //[성공] -> 현재 화면 다시 요청
-                                    val newAccessToken = body.result.access
-                                    App.prefs.access = newAccessToken
+            button.setOnClickListener {
+                alertDialog.dismiss()
+                name = userName.toString()
+                //내가 등록할 즐겨찾기의 정보를 담은 객체(이름, 좌표...)
+                val enrollRequest = FavoriteLocationCoordinateRequest.fromLocationCoordinate(name, lc);
+
+                //local storage 에서 token 가져옮
+                val accessToken = "Bearer ${App.prefs.access}"
+
+                //POST 요청 전송
+                RetrofitBuilder.api.addFavorite(accessToken, enrollRequest).enqueue(object : Callback<ServerResponse<String>> {
+                    override fun onResponse(
+                        call: Call<ServerResponse<String>>,
+                        response: Response<ServerResponse<String>>
+                    ) {
+                        val body = response.body() ?: return
+                        val message = body.message
+                        if (message.equals("success")) {
+                            Toast.makeText(this@Routelist, "즐겨찾기 등록", Toast.LENGTH_LONG).show()
+                        }
+                        else if (message.equals("You cannot create more than 5 favorites.")){
+                            Toast.makeText(this@Routelist, "즐겨찾기는 5개 이상 등록할 수 없습니다.", Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            RetrofitBuilder.api.refresh(TokenRefreshRequest(App.prefs.refresh)).enqueue(object : Callback<ServerResponse<TokenRefreshResponse>> {
+                                override fun onResponse(
+                                    call: Call<ServerResponse<TokenRefreshResponse>>,
+                                    response: Response<ServerResponse<TokenRefreshResponse>>
+                                ) {
+                                    val body = response.body() ?: return
+                                    val message = body.message
+                                    if (message.equals("success")) {
+                                        //[성공] -> 현재 화면 다시 요청
+                                        val newAccessToken = body.result.access
+                                        App.prefs.access = newAccessToken
+                                    }
+                                    else {
+                                        //[실급]실패 -> 로그인 화면
+                                        Toast.makeText(this@Routelist, "세션 종료. 로그인", Toast.LENGTH_LONG).show()
+                                        val intent = Intent(this@Routelist, Login::class.java)
+                                        startActivity(intent)
+                                    }
                                 }
-                                else {
-                                    //[실급]실패 -> 로그인 화면
-                                    Toast.makeText(this@Routelist, "세션 종료. 로그인", Toast.LENGTH_LONG).show()
-                                    val intent = Intent(this@Routelist, Login::class.java)
-                                    startActivity(intent)
+                                override fun onFailure(
+                                    call: Call<ServerResponse<TokenRefreshResponse>>,
+                                    t: Throwable
+                                ) {
                                 }
-                            }
-                            override fun onFailure(
-                                call: Call<ServerResponse<TokenRefreshResponse>>,
-                                t: Throwable
-                            ) {
-                            }
-                        })
+                            })
+                        }
                     }
-                }
-                override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
-                }
-            })
+                    override fun onFailure(call: Call<ServerResponse<String>>, t: Throwable) {
+                    }
+                })
+            }
+            alertDialog.show()
         }
 
         //val back = Intent(this,MainActivity::class.java)
