@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.location.Geocoder
@@ -186,6 +187,8 @@ class Routelist : AppCompatActivity() {
 
             val userName = dialogView.findViewById<EditText>(R.id.name).text
             val button = dialogView.findViewById<MaterialButton>(R.id.button)
+
+            alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             button.setOnClickListener {
                 alertDialog.dismiss()
