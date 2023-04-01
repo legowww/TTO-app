@@ -35,6 +35,8 @@ class Mypage : AppCompatActivity() {
         val imageV : (ImageView) = findViewById(R.id.imageV)
         val bitmap: Bitmap = Bitmap.createBitmap(1100, 1000, Bitmap.Config.ARGB_8888)
         val canvas: Canvas = Canvas(bitmap)
+        val username : TextView = findViewById(R.id.username)
+        val userid : TextView = findViewById(R.id.userid)
 
         var shapeDrawable: ShapeDrawable
 
@@ -50,7 +52,7 @@ class Mypage : AppCompatActivity() {
 
         imageV.background = BitmapDrawable(getResources(), bitmap)
 
-        //val back = Intent(this,MainActivity::class.java)
+        val back = Intent(this,MainActivity::class.java)
         val star = Intent(this,Favorites::class.java)
         val home = Intent(this, MainActivity::class.java)
         val account = Intent(this, Mypage::class.java)
@@ -67,8 +69,8 @@ class Mypage : AppCompatActivity() {
                 if (message.equals("success")) {
                     val myName = body.result.name
                     val myId = body.result.username
-                    println("=======name=$myName")
-                    println("=======id=$myId")
+                    username.text = myName
+                    userid.text = myId
                 }
                 else {
                     RetrofitBuilder.api.refresh(TokenRefreshRequest(App.prefs.refresh)).enqueue(object : Callback<ServerResponse<TokenRefreshResponse>> {

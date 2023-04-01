@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     lateinit var start: CharSequence
     lateinit var end: CharSequence
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,6 +57,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val search2 = findViewById<AppCompatButton>(R.id.searchbtn2)
         val text1 = ArrayList<TextView>()
         val text2 = ArrayList<TextView>()
+        val cancelAlarm : (Button) = findViewById(R.id.cancelAlarm)
+
+        cancelAlarm.setOnClickListener{
+            stopService(Intent(this, AlarmSoundService::class.java))
+        }
 
         for (i: Int in 0..4) {
             startAddr.add("")
@@ -148,9 +151,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
 
-        val back = Intent(this,Login::class.java)
+        //val back = Intent(this,MainActivity::class.java)
         val star = Intent(this,Favorites::class.java)
         val home = Intent(this, MainActivity::class.java)
+        val reload = Intent(this, MainActivity::class.java)
         val account = Intent(this, Mypage::class.java)
 
         val tabs : (TabLayout) = findViewById(R.id.tabs)
@@ -163,14 +167,31 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-                    0 -> startActivity(back)
+                    0 -> startActivity(home)
                     1 -> startActivity(star)
                     2 -> startActivity(home)
-                    3 -> startActivity(home)
+                    3 -> startActivity(reload)
                     4 -> startActivity(account)
                 }
             }
         })
+
+//        val tabs : (TabLayout) = findViewById(R.id.tabs)
+//        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//            }
+//
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                when (tab!!.position) {
+//                    1 -> supportFragmentManager.beginTransaction().replace(R.id.viewPager, TwoFragment()).commit()
+//                    2 -> supportFragmentManager.beginTransaction().replace(R.id.viewPager, OneFragment()).commit()
+//                    4 -> supportFragmentManager.beginTransaction().replace(R.id.viewPager, ThreeFragment()).commit()
+//                }
+//            }
+//        })
 
     }
 

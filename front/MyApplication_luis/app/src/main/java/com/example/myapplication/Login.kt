@@ -26,6 +26,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_my_page.*
 
 class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +92,7 @@ class Login : AppCompatActivity() {
                         App.prefs.access = tokens.access
                         App.prefs.refresh = tokens.refresh
 
-                        Toast.makeText(this@Login, "로그인", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@Login, "로그인", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@Login, MainActivity::class.java)
                         startActivity(intent)
                     }

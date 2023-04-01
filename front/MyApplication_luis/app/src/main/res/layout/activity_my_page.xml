@@ -56,12 +56,13 @@
                 android:textSize="20dp"/>
 
             <TextView
+                android:id="@+id/username"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:fontFamily="@font/jalnan"
                 android:gravity="center"
                 android:background="@drawable/custom_input"
-                android:text="이 름"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="20dp"/>
         </LinearLayout>
@@ -84,43 +85,44 @@
                 android:textSize="20dp"/>
 
             <TextView
+                android:id="@+id/userid"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:fontFamily="@font/jalnan"
                 android:gravity="center"
                 android:background="@drawable/custom_input"
-                android:text="아 이 디"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="20dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent">-->
+<!--            -->
+<!--            <TextView-->
+<!--                android:layout_width="130dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:fontFamily="@font/jalnan"-->
+<!--                android:gravity="center"-->
+<!--                android:text="비밀번호 :"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20dp"/>-->
 
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="50dp"
-                android:fontFamily="@font/jalnan"
-                android:gravity="center"
-                android:text="비밀번호 :"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
-
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:fontFamily="@font/jalnan"
-                android:gravity="center"
-                android:background="@drawable/custom_input"
-                android:text="비 밀 번 호"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:fontFamily="@font/jalnan"-->
+<!--                android:gravity="center"-->
+<!--                android:background="@drawable/custom_input"-->
+<!--                android:text="비 밀 번 호"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20dp"/>-->
+<!--        </LinearLayout>-->
 
         <ImageView
             android:id="@+id/imageV"

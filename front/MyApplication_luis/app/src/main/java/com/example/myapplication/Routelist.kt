@@ -44,6 +44,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
 import kotlin.math.round
+import kotlin.time.measureTimedValue
 
 class Routelist : AppCompatActivity() {
 
@@ -94,7 +95,6 @@ class Routelist : AppCompatActivity() {
         val imageVs = ArrayList<ImageView>()
         val imageView : (ImageView) = findViewById(R.id.imageview)
         val loadingLayout : (LinearLayout) = findViewById(R.id.loading)
-
 
         Glide.with(this).load(R.raw.bus).into(imageView)
 
