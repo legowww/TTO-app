@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Routelist"
+    android:background="@color/background">
+
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="검색결과"
+        android:textSize="40dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <LinearLayout
+        android:id="@+id/loading"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tabs"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:background="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_gravity="center"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.461" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jalnan"
+            android:gravity="center"
+            android:text="불러오는중"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.536" />
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:elevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:tabIconTint="@color/black"
+        app:tabIndicatorColor="@color/orange"
+        app:tabRippleColor="@color/orange"
+        app:tabTextColor="@color/orange">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/back" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/star" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/refresh" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/account" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:scrollbars="none"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.712">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/search_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:background="@drawable/custom_input"
+                android:layout_margin="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/time1"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/totaltime1"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageV1"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:background="@drawable/custom_input"
+                android:layout_margin="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/time2"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/totaltime2"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageV2"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout3"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:background="@drawable/custom_input"
+                android:layout_margin="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/time3"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/totaltime3"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageV3"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout4"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:background="@drawable/custom_input"
+                android:layout_margin="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/time4"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/totaltime4"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageV4"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout5"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:background="@drawable/custom_input"
+                android:layout_margin="10dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/time5"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/totaltime5"
+                        android:layout_width="185dp"
+                        android:layout_height="75dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/walk"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="도보"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bus"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:text="버스"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/subway"/>
+                    <TextView
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:text="지하철"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/jalnan"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageV5"
+                    android:layout_width="370dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/tempFavoriteAddButton"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/jalnan"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="10dp"
+        android:text="즐겨찾기"
+        android:translationZ="10dp"
+        android:textColor="@color/yellow"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
