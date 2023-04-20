@@ -5,8 +5,6 @@ package com.quadint.app.web.config.jwt;
 import com.quadint.app.domain.User;
 import com.quadint.app.domain.UserRole;
 import com.quadint.app.web.util.JwtTokenUtils;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +26,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("[JwtAuthorizationFilter]");
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (header == null || !header.startsWith("Bearer ")) {

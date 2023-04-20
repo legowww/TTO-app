@@ -1,6 +1,5 @@
 package com.quadint.app.web.controller;
 
-import com.quadint.app.domain.User;
 import com.quadint.app.web.controller.request.TokenRefreshRequest;
 import com.quadint.app.web.controller.response.Response;
 import com.quadint.app.web.controller.response.TokenRefreshResponse;

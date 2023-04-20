@@ -3,8 +3,8 @@ package com.quadint.app.domain.route;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quadint.app.domain.transportation.Bus;
 import com.quadint.app.domain.transportation.Subway;
-import com.quadint.app.domain.transportation.TransportationType;
 import com.quadint.app.domain.transportation.Transportation;
+import com.quadint.app.domain.transportation.TransportationType;
 import com.quadint.app.web.exception.TtoAppException;
 import lombok.Getter;
 

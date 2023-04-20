@@ -157,13 +157,6 @@ public class RouteService {
 
         Collections.sort(routes);
 
-        for (Route route : routes) {
-            List<Transportation> transportationList = route.getTransportationList();
-            for (Transportation transportation : transportationList) {
-                log.info("{}", transportation.toString());
-            }
-            log.error("\n");
-        }
 
         List<TimeRoute> optimalResult = addOutingTime(routes); //각 경로에 해당하는 첫 번째(정류장, 역)까지의 걷는 시간 추가
         if (optimalResult.size() == 0) {

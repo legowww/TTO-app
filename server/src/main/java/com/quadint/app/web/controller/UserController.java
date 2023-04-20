@@ -3,9 +3,7 @@ package com.quadint.app.web.controller;
 
 import com.quadint.app.domain.Favorite;
 import com.quadint.app.domain.User;
-import com.quadint.app.domain.entity.FavoriteEntity;
 import com.quadint.app.web.controller.request.FavoriteLocationCoordinateRequest;
-import com.quadint.app.web.controller.request.LocationCoordinateRequest;
 import com.quadint.app.web.controller.request.UserJoinRequest;
 import com.quadint.app.web.controller.response.MyPageResponse;
 import com.quadint.app.web.controller.response.Response;
@@ -13,7 +11,6 @@ import com.quadint.app.web.service.FavoriteService;
 import com.quadint.app.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;

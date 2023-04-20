@@ -6,8 +6,6 @@ import com.quadint.app.web.controller.request.LocationCoordinateRequest;
 import com.quadint.app.web.controller.response.Response;
 import com.quadint.app.web.service.RouteService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
