@@ -12,8 +12,11 @@
 - 주요 컴포넌트 정의 및 설계
 <img src="https://user-images.githubusercontent.com/70372188/235967922-37e72d22-27e2-4d9a-b415-fa69ae2cf10e.png" width="800" height="500"/>
 
+#### ✅ APP UI
+![image](https://user-images.githubusercontent.com/70372188/236246595-00e01c6c-797c-4216-b05b-a8988f26a7ef.png)
+
 #### ✅ 기술 스택
-java jdk11, SpringBoot 2.4.1, Andorid Studio, AWS, MySQL
+Java jdk11, SpringBoot 2.4.1, Andorid Studio, AWS, MySQL
 
 
 
