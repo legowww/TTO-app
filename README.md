@@ -9,14 +9,17 @@
 #### ✅ 프로젝트 구조
 ![architecture](https://user-images.githubusercontent.com/70372188/235967196-1c2c77ef-75d2-4b9d-927a-82890bdc966a.png)
 
-- 주요 컴포넌트 정의 및 설계
-<img src="https://user-images.githubusercontent.com/70372188/235967922-37e72d22-27e2-4d9a-b415-fa69ae2cf10e.png" width="800" height="500"/>
+#### ✅ 주요 컴포넌트 설계
+<img src="https://user-images.githubusercontent.com/70372188/235967922-37e72d22-27e2-4d9a-b415-fa69ae2cf10e.png">
 
 #### ✅ APP UI
 ![image](https://user-images.githubusercontent.com/70372188/236246595-00e01c6c-797c-4216-b05b-a8988f26a7ef.png)
 
-#### ✅ 기술 스택
-Java jdk11, SpringBoot 2.4.1, Andorid Studio, AWS, MySQL
+#### ✅ 사용된 기술 스택
+- Java Jdk11
+- SpringBoot 2.4.1
+- Andorid Studio
+- MySQL
 
 
 
