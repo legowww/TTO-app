@@ -16,9 +16,10 @@
 ![image](https://user-images.githubusercontent.com/70372188/236246595-00e01c6c-797c-4216-b05b-a8988f26a7ef.png)
 
 #### ✅ 사용된 기술 스택
-- Java Jdk11
+- Java jdk 11
 - SpringBoot 2.4.1
 - Andorid Studio
+- Kotlin 1.7.2 
 - MySQL
 
 
